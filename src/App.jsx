@@ -67,6 +67,18 @@ export default function App() {
   // Toast notifications state
   const [toast, setToast] = useState(null); // { type: 'success' | 'error', message: '' }
 
+  // Modal close handler
+  const handleCloseModal = () => {
+    setIsModalOpen(false);
+    setFormData({
+      fullName: '',
+      phone: '',
+      instituteName: '',
+      studentRange: ''
+    });
+    setFormErrors({});
+  };
+
   // Detect scroll to style header
   useEffect(() => {
     const handleScroll = () => {
@@ -127,13 +139,7 @@ export default function App() {
       
       // Success flow
       showToast('success', 'Thanks! Our team will contact you shortly.');
-      setFormData({
-        fullName: '',
-        phone: '',
-        instituteName: '',
-        studentRange: ''
-      });
-      setIsModalOpen(false);
+      handleCloseModal();
     } catch (error) {
       console.error('Error submitting booking:', error);
       showToast('error', error.message || 'Failed to submit request. Please try again.');
@@ -962,7 +968,7 @@ export default function App() {
       {isModalOpen && (
         <div 
           className="fixed inset-0 z-50 flex items-center justify-center bg-slate-900/60 backdrop-blur-sm p-4 animate-fade-in"
-          onClick={() => setIsModalOpen(false)}
+          onClick={handleCloseModal}
         >
           <div 
             className="w-full max-w-md bg-white dark:bg-slate-900 rounded-3xl shadow-2xl border border-slate-100 dark:border-slate-800 overflow-hidden relative animate-fade-in-up"
@@ -975,7 +981,7 @@ export default function App() {
               <p className="text-xs text-slate-500 dark:text-slate-400 mt-1">Our EdTech engineers will schedule your walkthrough within 24 hours.</p>
               
               <button 
-                onClick={() => setIsModalOpen(false)}
+                onClick={handleCloseModal}
                 className="absolute top-4 right-4 p-1.5 rounded-lg text-slate-400 hover:text-slate-600 dark:text-slate-400 hover:bg-slate-100 dark:hover:bg-slate-800 dark:bg-slate-800 transition-colors"
                 aria-label="Close dialog"
               >
@@ -1086,7 +1092,7 @@ export default function App() {
               <div className="pt-2 flex gap-3">
                 <button 
                   type="button" 
-                  onClick={() => setIsModalOpen(false)}
+                  onClick={handleCloseModal}
                   className="flex-1 py-3 border border-slate-200 dark:border-slate-700 hover:bg-slate-50 dark:hover:bg-slate-800 dark:bg-slate-950 text-slate-700 dark:text-slate-300 text-sm font-semibold rounded-xl active:scale-95 transition-all"
                 >
                   Cancel
