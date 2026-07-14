@@ -192,7 +192,7 @@ export default function HomePage() {
     <div className="w-full min-h-screen pb-32 overflow-hidden bg-transparent">
       
       {/* Hero Section */}
-      <section className="pt-40 pb-24 px-6">
+      <section className="pt-40 pb-12 px-6">
         <div className="max-w-4xl mx-auto text-center">
           
           {/* Animated Logo Container */}
@@ -244,12 +244,12 @@ export default function HomePage() {
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
-            className="flex items-center justify-center gap-4"
+            className="flex items-center justify-center gap-6 mt-12"
           >
-            <a href="#softwares" className="px-8 py-2.5 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 font-bold tracking-wide hover:bg-blue-200 dark:hover:bg-blue-500/30 transition-colors border border-blue-200 dark:border-blue-500/30 shadow-sm">
+            <a href="#softwares" className="px-10 py-3.5 text-lg rounded-full bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 font-bold tracking-wide hover:bg-blue-200 dark:hover:bg-blue-500/30 transition-all duration-300 border border-blue-200 dark:border-blue-500/30 shadow-lg hover:shadow-xl hover:-translate-y-1">
               Software
             </a>
-            <a href="#services" className="px-8 py-2.5 rounded-full bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 font-bold tracking-wide hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors border border-slate-200 dark:border-slate-700 shadow-sm">
+            <a href="#services" className="px-10 py-3.5 text-lg rounded-full bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 font-bold tracking-wide hover:bg-slate-200 dark:hover:bg-slate-700 transition-all duration-300 border border-slate-200 dark:border-slate-700 shadow-lg hover:shadow-xl hover:-translate-y-1">
               Services
             </a>
           </motion.div>
