@@ -171,7 +171,7 @@ export default function HomePage() {
             initial="hidden"
             animate="visible"
             variants={fadeInUp}
-            className="text-4xl md:text-5xl lg:text-[56px] font-bold text-slate-900 dark:text-white tracking-tight leading-[1.15] mb-6 transition-colors duration-300"
+            className="text-3xl sm:text-4xl md:text-5xl lg:text-[56px] font-bold text-slate-900 dark:text-white tracking-tight leading-[1.15] mb-6 transition-colors duration-300"
           >
             MAKE YOUR CLASSROOM <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 dark:from-cyan-400 dark:via-blue-500 dark:to-purple-600 animate-gradient-x">SMART WITH ACADEX</span>
@@ -218,8 +218,8 @@ export default function HomePage() {
                 <TrendingUp className="w-8 h-8 text-white" />
               </div>
               <div>
-                <h3 className="text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight transition-colors duration-300">BatchFlow</h3>
-                <p className="text-slate-600 dark:text-slate-400 text-lg font-medium transition-colors duration-300">Managing Institute Software</p>
+                <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight transition-colors duration-300">BatchFlow</h3>
+                <p className="text-slate-600 dark:text-slate-400 text-base md:text-lg font-medium transition-colors duration-300">Managing Institute Software</p>
               </div>
             </div>
             
@@ -299,11 +299,11 @@ export default function HomePage() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-white"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.52 16h12.96"/></svg>
               </div>
               <div>
-                <div className="flex items-center gap-4">
-                  <h3 className="text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight transition-colors duration-300">TestLab</h3>
-                  <span className="px-3 py-1 rounded-full bg-indigo-500/10 dark:bg-indigo-500/20 border border-indigo-500/20 dark:border-indigo-500/30 text-indigo-600 dark:text-indigo-400 text-xs font-bold uppercase tracking-widest shadow-[0_0_10px_rgba(99,102,241,0.1)] dark:shadow-[0_0_10px_rgba(99,102,241,0.2)] transition-colors duration-300">Coming Soon</span>
+                <div className="flex flex-wrap items-center gap-4">
+                  <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight transition-colors duration-300">TestLab</h3>
+                  <span className="px-3 py-1 rounded-full bg-indigo-500/10 dark:bg-indigo-500/20 border border-indigo-500/20 dark:border-indigo-500/30 text-indigo-600 dark:text-indigo-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest shadow-[0_0_10px_rgba(99,102,241,0.1)] dark:shadow-[0_0_10px_rgba(99,102,241,0.2)] transition-colors duration-300">Coming Soon</span>
                 </div>
-                <p className="text-slate-600 dark:text-slate-400 text-lg font-medium mt-1 transition-colors duration-300">AI-Powered Test Generator</p>
+                <p className="text-slate-600 dark:text-slate-400 text-base md:text-lg font-medium mt-1 transition-colors duration-300">AI-Powered Test Generator</p>
               </div>
             </div>
             
@@ -373,11 +373,11 @@ export default function HomePage() {
                 <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-white"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
               </div>
               <div>
-                <div className="flex items-center gap-4">
-                  <h3 className="text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight transition-colors duration-300">FamFlow</h3>
-                  <span className="px-3 py-1 rounded-full bg-teal-500/10 dark:bg-teal-500/20 border border-teal-500/20 dark:border-teal-500/30 text-teal-600 dark:text-teal-400 text-xs font-bold uppercase tracking-widest shadow-[0_0_10px_rgba(45,212,191,0.1)] dark:shadow-[0_0_10px_rgba(45,212,191,0.2)] transition-colors duration-300">Coming Soon</span>
+                <div className="flex flex-wrap items-center gap-4">
+                  <h3 className="text-3xl sm:text-4xl lg:text-5xl font-black text-slate-900 dark:text-white tracking-tight transition-colors duration-300">FamFlow</h3>
+                  <span className="px-3 py-1 rounded-full bg-teal-500/10 dark:bg-teal-500/20 border border-teal-500/20 dark:border-teal-500/30 text-teal-600 dark:text-teal-400 text-[10px] sm:text-xs font-bold uppercase tracking-widest shadow-[0_0_10px_rgba(45,212,191,0.1)] dark:shadow-[0_0_10px_rgba(45,212,191,0.2)] transition-colors duration-300">Coming Soon</span>
                 </div>
-                <p className="text-slate-600 dark:text-slate-400 text-lg font-medium mt-1 transition-colors duration-300">Coaching Institute Marketing Partners</p>
+                <p className="text-slate-600 dark:text-slate-400 text-base md:text-lg font-medium mt-1 transition-colors duration-300">Coaching Institute Marketing Partners</p>
               </div>
             </div>
             

@@ -232,7 +232,7 @@ export default function SetupPage() {
 
         {/* Right Side: Sticky Quote Form */}
         <div>
-          <div className="bg-white dark:bg-[#121A2F] rounded-3xl p-8 lg:p-10 border border-slate-200 dark:border-slate-800 shadow-xl dark:shadow-2xl sticky top-32 transition-colors duration-300">
+          <div className="bg-white dark:bg-[#121A2F] rounded-3xl p-8 lg:p-10 border border-slate-200 dark:border-slate-800 shadow-xl dark:shadow-2xl lg:sticky lg:top-32 transition-colors duration-300">
             <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-300">Request an Installation Quote</h2>
             <p className="text-slate-600 dark:text-slate-400 text-sm mb-8 transition-colors duration-300">
               Our engineering team will evaluate your physical infrastructure and provide a detailed bill of materials.

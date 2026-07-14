@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
-import { motion, useMotionValue, useSpring } from 'framer-motion';
-import { Globe, Share2, Clock, Hash, Briefcase, Video, Camera, ArrowRight, Sun, Moon } from 'lucide-react';
+import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
+import { Globe, Share2, Clock, Hash, Briefcase, Video, Camera, ArrowRight, Sun, Moon, Menu, X } from 'lucide-react';
 import logoUrl from './assets/logo.jpg';
 
 // Pages
@@ -89,6 +89,7 @@ function MagneticButton({ children, className, href, target, rel }) {
 
 export default function App() {
   const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
     if (isDarkMode) {
@@ -166,13 +167,48 @@ export default function App() {
                 href="https://acadextechnologies.netlify.app/login"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-block text-xs font-bold text-white bg-[#3B82F6] hover:bg-blue-400 transition-colors px-6 py-2.5 rounded-lg shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]"
+                className="hidden md:inline-block text-xs font-bold text-white bg-[#3B82F6] hover:bg-blue-400 transition-colors px-6 py-2.5 rounded-lg shadow-[0_0_15px_rgba(59,130,246,0.3)] hover:shadow-[0_0_25px_rgba(59,130,246,0.5)]"
               >
                 Login
               </MagneticButton>
+
+              {/* Mobile Hamburger Button */}
+              <button 
+                onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+                className="md:hidden w-10 h-10 rounded-lg flex items-center justify-center bg-slate-100 dark:bg-[#1E293B] text-slate-700 dark:text-slate-300 transition-colors"
+                aria-label="Toggle Mobile Menu"
+              >
+                {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
+              </button>
             </div>
             
           </div>
+
+          {/* Mobile Menu Dropdown */}
+          <AnimatePresence>
+            {isMobileMenuOpen && (
+              <motion.div 
+                initial={{ opacity: 0, y: -20 }}
+                animate={{ opacity: 1, y: 0 }}
+                exit={{ opacity: 0, y: -20 }}
+                className="md:hidden absolute top-full left-0 w-full bg-white dark:bg-[#0B1120] border-b border-slate-200 dark:border-white/5 shadow-2xl py-6 px-6 flex flex-col gap-6 z-50 transition-colors duration-300"
+              >
+                <nav className="flex flex-col gap-4">
+                  <a href="/#softwares" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold text-slate-800 dark:text-white transition-colors">Software</a>
+                  <a href="/#services" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold text-slate-800 dark:text-white transition-colors">Services</a>
+                  <a href="/" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold text-slate-800 dark:text-white transition-colors">About</a>
+                </nav>
+                <a 
+                  href="https://acadextechnologies.netlify.app/login"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full text-center text-sm font-bold text-white bg-[#3B82F6] hover:bg-blue-400 transition-colors px-6 py-4 rounded-xl shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+                >
+                  Login to Portal
+                </a>
+              </motion.div>
+            )}
+          </AnimatePresence>
         </header>
 
         {/* Main Content */}
