@@ -88,7 +88,7 @@ function MagneticButton({ children, className, href, target, rel }) {
 }
 
 export default function App() {
-  const [isDarkMode, setIsDarkMode] = useState(true);
+  const [isDarkMode, setIsDarkMode] = useState(false);
   const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   useEffect(() => {
@@ -141,14 +141,12 @@ export default function App() {
             
             <Link to="/" className="flex items-center gap-3">
               <div className="w-8 h-8 bg-slate-900 dark:bg-white flex items-center justify-center p-0.5 rounded-sm transition-colors duration-300">
-                <img src={logoUrl} alt="Acadex Logo" className="w-full h-full object-contain filter invert dark:invert-0 transition-all duration-300" />
+                <img src={logoUrl} alt="Acadex Logo" className="w-full h-full object-contain transition-all duration-300" />
               </div>
               <span className="font-bold text-lg tracking-tight text-slate-900 dark:text-white transition-colors duration-300">AcadexTech</span>
             </Link>
 
             <nav className="hidden md:flex items-center gap-8">
-              <a href="/#softwares" className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white transition-colors">Software</a>
-              <a href="/#services" className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white transition-colors">Services</a>
               <a href="/" className="text-xs font-semibold text-slate-600 dark:text-slate-300 hover:text-blue-600 dark:hover:text-white transition-colors">About</a>
             </nav>
 
@@ -194,8 +192,6 @@ export default function App() {
                 className="md:hidden absolute top-full left-0 w-full bg-white dark:bg-[#0B1120] border-b border-slate-200 dark:border-white/5 shadow-2xl py-6 px-6 flex flex-col gap-6 z-50 transition-colors duration-300"
               >
                 <nav className="flex flex-col gap-4">
-                  <a href="/#softwares" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold text-slate-800 dark:text-white transition-colors">Software</a>
-                  <a href="/#services" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold text-slate-800 dark:text-white transition-colors">Services</a>
                   <a href="/" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold text-slate-800 dark:text-white transition-colors">About</a>
                 </nav>
                 <a 
@@ -233,7 +229,7 @@ export default function App() {
             <div className="md:col-span-4">
               <div className="flex items-center gap-3 mb-6">
                 <div className="w-8 h-8 bg-slate-900 dark:bg-white flex items-center justify-center p-0.5 rounded-sm transition-colors duration-300">
-                  <img src={logoUrl} alt="Acadex Logo" className="w-full h-full object-contain filter invert dark:invert-0 transition-all duration-300" />
+                  <img src={logoUrl} alt="Acadex Logo" className="w-full h-full object-contain transition-all duration-300" />
                 </div>
                 <span className="font-black text-xl text-slate-900 dark:text-white tracking-tight transition-colors duration-300">ACADEXTECH</span>
               </div>

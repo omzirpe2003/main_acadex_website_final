@@ -1,6 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
+import { supabase } from '../supabaseClient';
 import { 
   Users, LineChart, CalendarCheck, PieChart, 
   Sparkles, LayoutGrid, FileEdit, FileDown,
@@ -73,15 +74,70 @@ function LaptopCarousel({ images }) {
 
 export default function HomePage() {
   const [formData, setFormData] = useState({
+    instituteName: '',
     fullName: '',
     email: '',
     mobile: '',
     institutionSize: '500 - 1,000 Students'
   });
 
-  const handleBookingSubmit = (e) => {
+  const [showPopup, setShowPopup] = useState(false);
+  const [isSubmitting, setIsSubmitting] = useState(false);
+
+  const handleBookingSubmit = async (e) => {
     e.preventDefault();
-    alert("Demo booked for " + formData.fullName);
+    setIsSubmitting(true);
+    
+    if (supabase) {
+      try {
+        const { error } = await supabase
+          .from('demo_bookings')
+          .insert([
+            { 
+              institute_name: formData.instituteName,
+              full_name: formData.fullName,
+              email: formData.email,
+              mobile: formData.mobile,
+              institution_size: formData.institutionSize
+            }
+          ]);
+          
+        if (error) throw error;
+        
+        setShowPopup(true);
+        setTimeout(() => {
+          setShowPopup(false);
+          setFormData({
+            instituteName: '',
+            fullName: '',
+            email: '',
+            mobile: '',
+            institutionSize: '500 - 1,000 Students'
+          });
+        }, 4000);
+      } catch (error) {
+        console.error("Error saving booking:", error.message);
+        alert("Failed to book demo. Please try again later.");
+      } finally {
+        setIsSubmitting(false);
+      }
+    } else {
+      console.warn("Supabase not configured. Simulating success.");
+      setTimeout(() => {
+        setIsSubmitting(false);
+        setShowPopup(true);
+        setTimeout(() => {
+          setShowPopup(false);
+          setFormData({
+            instituteName: '',
+            fullName: '',
+            email: '',
+            mobile: '',
+            institutionSize: '500 - 1,000 Students'
+          });
+        }, 4000);
+      }, 1000);
+    }
   };
 
   // Animation Variants
@@ -163,7 +219,7 @@ export default function HomePage() {
               }}
               className="w-full h-full bg-slate-900 dark:bg-white p-2 rounded-3xl flex items-center justify-center overflow-hidden transition-colors duration-300"
             >
-              <img src={logoUrl} alt="Acadex Logo Big" className="w-full h-full object-contain filter invert dark:invert-0 transition-all duration-300" />
+              <img src={logoUrl} alt="Acadex Logo Big" className="w-full h-full object-contain transition-all duration-300" />
             </motion.div>
           </motion.div>
 
@@ -184,6 +240,19 @@ export default function HomePage() {
           >
             Next-generation educational infrastructure. Seamless automation for the modern learning environment.
           </motion.p>
+          <motion.div 
+            initial={{ opacity: 0, y: 20 }}
+            animate={{ opacity: 1, y: 0 }}
+            transition={{ duration: 0.7, delay: 0.4 }}
+            className="flex items-center justify-center gap-4"
+          >
+            <a href="#softwares" className="px-8 py-2.5 rounded-full bg-blue-100 text-blue-600 dark:bg-blue-500/20 dark:text-blue-400 font-bold tracking-wide hover:bg-blue-200 dark:hover:bg-blue-500/30 transition-colors border border-blue-200 dark:border-blue-500/30 shadow-sm">
+              Software
+            </a>
+            <a href="#services" className="px-8 py-2.5 rounded-full bg-slate-100 text-slate-700 dark:bg-slate-800 dark:text-slate-300 font-bold tracking-wide hover:bg-slate-200 dark:hover:bg-slate-700 transition-colors border border-slate-200 dark:border-slate-700 shadow-sm">
+              Services
+            </a>
+          </motion.div>
         </div>
       </section>
 
@@ -544,6 +613,17 @@ export default function HomePage() {
           </div>
 
           <form onSubmit={handleBookingSubmit} className="space-y-6">
+            <div>
+              <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 transition-colors duration-300">Institution Name</label>
+              <input 
+                type="text" 
+                value={formData.instituteName}
+                onChange={(e) => setFormData({...formData, instituteName: e.target.value})}
+                className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-[#0F1626] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 text-sm focus:outline-none focus:border-blue-500 transition-colors"
+                placeholder="E.g. Greenfield Academy"
+                required
+              />
+            </div>
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 transition-colors duration-300">Full Name</label>
@@ -605,12 +685,13 @@ export default function HomePage() {
             </div>
 
             <motion.button 
-              whileHover={{ scale: 1.02 }}
-              whileTap={{ scale: 0.98 }}
+              whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
+              whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
               type="submit" 
-              className="w-full py-4 rounded-xl bg-[#3B82F6] hover:bg-blue-500 text-white font-bold tracking-wide transition-colors mt-4 shadow-[0_10px_20px_rgba(59,130,246,0.3)] dark:shadow-[0_0_20px_rgba(59,130,246,0.4)] hover:shadow-[0_15px_25px_rgba(59,130,246,0.4)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.6)]"
+              disabled={isSubmitting}
+              className={`w-full py-4 rounded-xl text-white font-bold tracking-wide transition-colors mt-4 shadow-[0_10px_20px_rgba(59,130,246,0.3)] dark:shadow-[0_0_20px_rgba(59,130,246,0.4)] ${isSubmitting ? 'bg-slate-400 cursor-not-allowed opacity-80' : 'bg-[#3B82F6] hover:bg-blue-500 hover:shadow-[0_15px_25px_rgba(59,130,246,0.4)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.6)]'}`}
             >
-              Confirm Reservation
+              {isSubmitting ? 'Confirming...' : 'Confirm Reservation'}
             </motion.button>
             
             <p className="text-[10px] text-slate-500 dark:text-slate-600 text-center font-mono mt-6 tracking-widest uppercase transition-colors">
@@ -619,6 +700,37 @@ export default function HomePage() {
           </form>
         </motion.div>
       </section>
+
+      {/* Booking Confirmation Popup */}
+      <AnimatePresence>
+        {showPopup && (
+          <motion.div 
+            initial={{ opacity: 0 }}
+            animate={{ opacity: 1 }}
+            exit={{ opacity: 0 }}
+            className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm"
+          >
+            <motion.div 
+              initial={{ scale: 0.8, opacity: 0 }}
+              animate={{ scale: 1, opacity: 1 }}
+              exit={{ scale: 0.8, opacity: 0 }}
+              transition={{ type: "spring", damping: 25, stiffness: 300 }}
+              className="bg-white dark:bg-[#121A2F] rounded-3xl p-8 max-w-sm w-full text-center border border-slate-200 dark:border-slate-800 shadow-2xl relative overflow-hidden"
+            >
+              <div className="absolute inset-0 bg-gradient-to-br from-blue-500/5 to-purple-500/5 pointer-events-none" />
+              <div className="w-16 h-16 bg-green-100 dark:bg-green-900/30 text-green-600 dark:text-green-400 rounded-full flex items-center justify-center mx-auto mb-4 relative z-10">
+                <svg className="w-8 h-8" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                  <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2.5} d="M5 13l4 4L19 7" />
+                </svg>
+              </div>
+              <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-2 relative z-10">Demo Booked!</h3>
+              <p className="text-slate-600 dark:text-slate-400 text-sm relative z-10">
+                Thank you, <strong className="text-slate-900 dark:text-slate-200">{formData.fullName}</strong>. Our team will contact you shortly to schedule the walkthrough.
+              </p>
+            </motion.div>
+          </motion.div>
+        )}
+      </AnimatePresence>
 
     </div>
   );
