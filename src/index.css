@@ -70,3 +70,20 @@
 .animate-delay-500 {
   animation-delay: 500ms;
 }
+
+@keyframes gradient-x {
+  0% {
+    background-position: 0% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position: 0% 50%;
+  }
+}
+
+.animate-gradient-x {
+  animation: gradient-x 6s ease infinite;
+  background-size: 200% auto;
+}
