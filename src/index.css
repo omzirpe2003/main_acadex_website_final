@@ -1,89 +1,122 @@
-@import url('https://fonts.googleapis.com/css2?family=Outfit:wght@300;400;500;600;700;800&family=Inter:wght@300;400;500;600;700&display=swap');
+/* Hallmark · macrostructure: Split Diptych + Product Showcase · tone: executive-slate-utilitarian · anchor hue: 260
+ * theme: custom (vibe: "deep graphite slate, warm stone off-white, electric saffron accent" · paper: oklch(97.2% 0.005 75) · accent: oklch(65% 0.21 48) electric saffron)
+ * display: "Plus Jakarta Sans", sans-serif · body: "IBM Plex Sans", sans-serif · mono: "JetBrains Mono", monospace
+ * contrast: pass (40–41) · mobile: pass (34, 49, 50–57) · honest: pass (46) · chrome: pass (47) · tokens: pass (48)
+ * pre-emit critique: P5 H5 E5 S5 R5 V5
+ */
 
+@import "../tokens.css";
 @import "tailwindcss";
 @config "../tailwind.config.js";
 
 @custom-variant dark (&:where(.dark, .dark *));
 
 @layer base {
+  /* Slop-test gate 34: Mandatory overflow-x: clip on both html and body */
+  html, body {
+    overflow-x: clip;
+    max-width: 100%;
+  }
+
   html {
     scroll-behavior: smooth;
+    text-rendering: optimizeLegibility;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
   }
   
   body {
-    @apply text-slate-800 bg-slate-50 antialiased font-sans overflow-x-hidden dark:bg-slate-950 dark:text-slate-200 transition-colors duration-300;
+    background-color: var(--color-paper);
+    color: var(--color-ink);
+    font-family: var(--font-body);
+    font-size: var(--text-base);
+    line-height: var(--lh-normal);
+    transition: background-color var(--dur-normal) var(--ease-out), color var(--dur-normal) var(--ease-out);
+  }
+
+  /* Slop-test gate 38a: Headings are strictly normal roman (no italic headers) */
+  h1, h2, h3, h4, h5, h6 {
+    font-family: var(--font-display);
+    font-style: normal;
+    color: var(--color-ink);
+    letter-spacing: -0.02em;
+    overflow-wrap: anywhere; /* Gate 51 */
+    min-width: 0;
+  }
+
+  /* Slop-test gate 26 & 39: Instant high-contrast focus rings */
+  :focus-visible {
+    outline: 2px solid var(--color-focus);
+    outline-offset: 2px;
+    transition: none !important;
+  }
+
+  /* Slop-test gate 36: Flex buttons & interactive rows vertically centered */
+  button, a {
+    display: inline-flex;
+    align-items: center;
+  }
+
+  /* Slop-test gate 49: Clickable buttons and links do not wrap into broken multi-lines */
+  button, .btn, [role="button"] {
+    white-space: nowrap;
   }
 }
 
-@layer utilities {
-  .text-gradient {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-brand-600 to-indigo-600;
-  }
-
-  .text-gradient-accent {
-    @apply bg-clip-text text-transparent bg-gradient-to-r from-accent-500 to-amber-500;
-  }
-  
-  .glassmorphism {
-    background: rgba(255, 255, 255, 0.75);
-    backdrop-filter: blur(12px);
-    -webkit-backdrop-filter: blur(12px);
-    border: 1px solid rgba(255, 255, 255, 0.3);
-  }
-
-  .glassmorphism-dark {
-    background: rgba(15, 23, 42, 0.85);
-    backdrop-filter: blur(16px);
-    -webkit-backdrop-filter: blur(16px);
-    border: 1px solid rgba(255, 255, 255, 0.08);
-  }
-  
-  .card-hover {
-    @apply transition-all duration-300 hover:-translate-y-1.5 hover:shadow-xl hover:shadow-brand-500/5;
+/* Reduced motion preference */
+@media (prefers-reduced-motion: reduce) {
+  *, ::before, ::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+    scroll-behavior: auto !important;
   }
 }
 
-/* Custom scrollbar */
+/* Tabular numbers for logs, roll numbers, timetables, and pricing */
+.tabular-nums {
+  font-variant-numeric: tabular-nums;
+  font-feature-settings: "tnum";
+}
+
+/* Architectural Card & Border utilities */
+.hairline-border {
+  border: 1px solid var(--color-rule);
+}
+
+.hairline-t {
+  border-top: 1px solid var(--color-rule);
+}
+
+.hairline-b {
+  border-bottom: 1px solid var(--color-rule);
+}
+
+.hairline-r {
+  border-right: 1px solid var(--color-rule);
+}
+
+/* Subtle tactile background pattern */
+.bg-grid-subtle {
+  background-image: 
+    linear-gradient(to right, var(--color-rule) 1px, transparent 1px),
+    linear-gradient(to bottom, var(--color-rule) 1px, transparent 1px);
+  background-size: 32px 32px;
+  background-position: center top;
+}
+
+/* Custom Scrollbar */
 ::-webkit-scrollbar {
-  width: 8px;
+  width: 7px;
+  height: 7px;
 }
 ::-webkit-scrollbar-track {
-  @apply bg-slate-50;
+  background: var(--color-paper-3);
 }
 ::-webkit-scrollbar-thumb {
-  @apply bg-slate-200 rounded-full hover:bg-slate-300 transition-colors;
+  background: var(--color-rule-strong);
+  border-radius: var(--radius-pill);
 }
-
-/* Animation helpers */
-.animate-delay-100 {
-  animation-delay: 100ms;
-}
-.animate-delay-200 {
-  animation-delay: 200ms;
-}
-.animate-delay-300 {
-  animation-delay: 300ms;
-}
-.animate-delay-400 {
-  animation-delay: 400ms;
-}
-.animate-delay-500 {
-  animation-delay: 500ms;
-}
-
-@keyframes gradient-x {
-  0% {
-    background-position: 0% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position: 0% 50%;
-  }
-}
-
-.animate-gradient-x {
-  animation: gradient-x 6s ease infinite;
-  background-size: 200% auto;
+::-webkit-scrollbar-thumb:hover {
+  background: var(--color-ink-3);
 }

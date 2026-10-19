@@ -1,0 +1,147 @@
+/* ACADEX Technologies · Theme: Clean Blue & White (matching official logo)
+ * Paper: #FFFFFF (Crisp White) · Brand: #1D4ED8 / #2563EB (Royal & Cobalt Blue) · Accent: #0284C7 (Electric Sky Cyan)
+ * Display: "Plus Jakarta Sans", sans-serif · Body: "IBM Plex Sans", sans-serif · Mono: "JetBrains Mono", monospace
+ */
+
+:root {
+  /* Surface / Paper tokens (Crisp White & Ice Blue) */
+  --color-paper: #FFFFFF;                     /* Pure Clean White */
+  --color-paper-2: #F8FAFC;                   /* Slate 50 raised card surface */
+  --color-paper-3: #F1F5F9;                   /* Slate 100 recessed panel surface */
+  --color-paper-subtle: #EFF6FF;              /* Soft ice-blue container */
+  --color-paper-ice: #E0F2FE;                 /* Subtle sky-tint container */
+
+  /* Ink / Text tokens (Deep Obsidian Charcoal & Slate) */
+  --color-ink: #0F172A;                       /* #0F172A high-contrast primary text (> 14:1) */
+  --color-ink-2: #334155;                     /* #334155 readable slate text (> 7:1) */
+  --color-ink-3: #64748B;                     /* #64748B muted text / placeholders */
+
+  /* Structural Rules & Hairlines */
+  --color-rule: #E2E8F0;                      /* Crisp clean hairline divider */
+  --color-rule-strong: #CBD5E1;               /* Prominent border */
+  --color-rule-blue: #BFDBFE;                 /* Ice-blue border */
+  --color-rule-dark: #1E293B;                 /* Dark structural border */
+
+  /* Brand Foundation (Vibrant Royal & Cobalt Blue - Matching Logo) */
+  --color-brand: #1D4ED8;                     /* Royal Blue */
+  --color-brand-primary: #2563EB;             /* Vibrant Cobalt Blue */
+  --color-brand-light: #3B82F6;               /* Light Blue hover */
+  --color-brand-subtle: #EFF6FF;              /* Ice blue badge/pill */
+  --color-brand-surface: #0F172A;             /* Deep navy container */
+
+  /* Vibrant Cyan / Sky Blue Accent (From ACADEX Logo 'X' & Book) */
+  --color-accent: #2563EB;                    /* Primary interactive blue */
+  --color-accent-hover: #1D4ED8;              /* Deep blue hover */
+  --color-accent-cyan: #0284C7;               /* Electric Sky Cyan */
+  --color-accent-subtle: #EFF6FF;             /* Light blue tint */
+  --color-accent-border: #BFDBFE;             /* Blue hairline */
+  --color-accent-ink: #FFFFFF;                /* Pure white text on blue (> 7.5:1) */
+
+  /* Focus & Functional Status */
+  --color-focus: #2563EB;
+  --color-success: #16A34A;                   /* Verified green */
+  --color-success-bg: #F0FDF4;
+  --color-danger: #DC2626;                    /* Alert red */
+  --color-danger-bg: #FEF2F2;
+  --color-whatsapp: #25D366;                  /* Official WhatsApp mark */
+
+  /* Typography Stacks */
+  --font-display: "Plus Jakarta Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-body: "IBM Plex Sans", -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  --font-mono: "JetBrains Mono", ui-monospace, SFMono-Regular, Menlo, monospace;
+
+  /* Typography Scales */
+  --text-2xs: 0.6875rem; /* 11px */
+  --text-xs: 0.75rem;    /* 12px */
+  --text-sm: 0.875rem;   /* 14px */
+  --text-base: 1rem;     /* 16px */
+  --text-md: 1.125rem;   /* 18px */
+  --text-lg: 1.25rem;    /* 20px */
+  --text-xl: 1.5rem;     /* 24px */
+  --text-2xl: 1.875rem;  /* 30px */
+  --text-3xl: 2.25rem;   /* 36px */
+  --text-4xl: 3rem;      /* 48px */
+  --text-display: clamp(2.25rem, 4.5vw, 3.75rem); /* 36px to 60px */
+
+  /* Line Heights */
+  --lh-tight: 1.05;
+  --lh-snug: 1.2;
+  --lh-normal: 1.55;
+  --lh-relaxed: 1.65;
+
+  /* 4-point Spacing System */
+  --space-3xs: 0.25rem;  /* 4px */
+  --space-2xs: 0.5rem;   /* 8px */
+  --space-xs: 0.75rem;   /* 12px */
+  --space-sm: 1rem;      /* 16px */
+  --space-md: 1.5rem;    /* 24px */
+  --space-lg: 2rem;      /* 32px */
+  --space-xl: 3rem;      /* 48px */
+  --space-2xl: 4.5rem;   /* 72px */
+  --space-3xl: 6rem;     /* 96px */
+
+  /* Radii */
+  --radius-xs: 3px;
+  --radius-sm: 6px;
+  --radius-md: 10px;
+  --radius-lg: 14px;
+  --radius-xl: 20px;
+  --radius-pill: 9999px;
+
+  /* Restrained Architectural Shadows */
+  --shadow-hairline: 0 1px 2px oklch(18% 0.022 260 / 0.04);
+  --shadow-sm: 0 2px 4px oklch(18% 0.022 260 / 0.05), 0 1px 2px oklch(18% 0.022 260 / 0.03);
+  --shadow-md: 0 6px 16px oklch(18% 0.022 260 / 0.07), 0 1px 3px oklch(18% 0.022 260 / 0.04);
+  --shadow-lg: 0 16px 36px oklch(18% 0.022 260 / 0.09), 0 2px 6px oklch(18% 0.022 260 / 0.04);
+  --shadow-accent: 0 4px 14px oklch(65% 0.21 48 / 0.25);
+
+  /* Animation Easings & Durations */
+  --ease-out: cubic-bezier(0.16, 1, 0.3, 1);
+  --ease-in-out: cubic-bezier(0.4, 0, 0.2, 1);
+  --dur-fast: 140ms;
+  --dur-normal: 220ms;
+  --dur-relaxed: 380ms;
+}
+
+/* Dark Mode (High-Tech Deep Navy Blue & Cyan Theme) */
+html.dark, [data-theme="dark"] {
+  --color-paper: #0B132B;                     /* Deep midnight navy */
+  --color-paper-2: #111C38;                   /* Raised navy card */
+  --color-paper-3: #17254A;                   /* Recessed container */
+  --color-paper-subtle: #1C2D5A;              /* Subtle navy container */
+  --color-paper-ice: #1E3A8A;
+
+  --color-ink: #F8FAFC;                       /* Pure crisp white text (15:1) */
+  --color-ink-2: #94A3B8;                     /* Slate light text (7:1) */
+  --color-ink-3: #64748B;                     /* Tertiary */
+
+  --color-rule: #1E293B;                      /* Clean dark border */
+  --color-rule-strong: #334155;               /* Prominent dark border */
+  --color-rule-blue: #1D4ED8;
+  --color-rule-dark: #0A0F1D;
+
+  --color-brand: #3B82F6;                     /* Bright Royal Blue */
+  --color-brand-primary: #3B82F6;
+  --color-brand-light: #60A5FA;
+  --color-brand-subtle: #172554;              /* Deep blue tint */
+  --color-brand-surface: #0B132B;
+
+  --color-accent: #38BDF8;                    /* Radiant Sky Cyan */
+  --color-accent-hover: #0EA5E9;
+  --color-accent-cyan: #38BDF8;
+  --color-accent-subtle: #082F49;
+  --color-accent-border: #0369A1;
+  --color-accent-ink: #0B132B;                /* High contrast dark text on cyan */
+
+  --color-focus: #38BDF8;
+  --color-success: #22C55E;
+  --color-success-bg: #052E16;
+  --color-danger: #EF4444;
+  --color-danger-bg: #450A0A;
+
+  --shadow-hairline: 0 1px 2px #00000060;
+  --shadow-sm: 0 2px 4px #00000080;
+  --shadow-md: 0 6px 16px #000000a0;
+  --shadow-lg: 0 16px 36px #000000c0;
+  --shadow-accent: 0 4px 14px rgba(56, 189, 248, 0.25);
+}

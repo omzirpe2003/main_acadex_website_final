@@ -8,55 +8,74 @@ export default {
   theme: {
     extend: {
       colors: {
+        paper: {
+          DEFAULT: 'var(--color-paper)',
+          card: 'var(--color-paper-2)',
+          subtle: 'var(--color-paper-3)',
+          recessed: 'var(--color-paper-subtle)',
+        },
+        ink: {
+          DEFAULT: 'var(--color-ink)',
+          secondary: 'var(--color-ink-2)',
+          muted: 'var(--color-ink-3)',
+        },
+        rule: {
+          DEFAULT: 'var(--color-rule)',
+          strong: 'var(--color-rule-strong)',
+        },
         brand: {
-          50: '#f5f7ff',
-          100: '#ebf0ff',
-          200: '#d6e0ff',
-          300: '#adc2ff',
-          400: '#859fff',
-          500: '#4f75ff', // Primary brand color
-          600: '#294eff',
-          700: '#1b3cdb',
-          800: '#142cac',
-          900: '#112280',
-          950: '#0a1147',
+          DEFAULT: 'var(--color-brand)',
+          light: 'var(--color-brand-light)',
+          subtle: 'var(--color-brand-subtle)',
+          surface: 'var(--color-brand-surface)',
+        },
+        // Backward compatibility mapping
+        forest: {
+          DEFAULT: 'var(--color-brand)',
+          light: 'var(--color-brand-light)',
+          subtle: 'var(--color-brand-subtle)',
+          surface: 'var(--color-brand-surface)',
         },
         accent: {
-          50: '#fffbf0',
-          100: '#fffae0',
-          200: '#fff0bd',
-          300: '#ffe08a',
-          400: '#ffcc57',
-          500: '#f7ad19', // Accent orange/gold color
-          600: '#d68e0d',
-          700: '#a36706',
-          800: '#754703',
-          900: '#4a2b02',
-          950: '#2d1900',
-        }
+          DEFAULT: 'var(--color-accent)',
+          hover: 'var(--color-accent-hover)',
+          subtle: 'var(--color-accent-subtle)',
+          border: 'var(--color-accent-border)',
+          ink: 'var(--color-accent-ink)',
+        },
+        focus: 'var(--color-focus)',
       },
       fontFamily: {
-        sans: ['Outfit', 'Inter', 'system-ui', 'sans-serif'],
+        display: ['var(--font-display)'],
+        body: ['var(--font-body)'],
+        sans: ['var(--font-body)'],
+        mono: ['var(--font-mono)'],
       },
-      animation: {
-        'fade-in': 'fadeIn 0.5s ease-out forwards',
-        'fade-in-up': 'fadeInUp 0.8s cubic-bezier(0.16, 1, 0.3, 1) forwards',
-        'float': 'float 6s ease-in-out infinite',
+      lineHeight: {
+        tight: 'var(--lh-tight)',
+        snug: 'var(--lh-snug)',
+        normal: 'var(--lh-normal)',
+        relaxed: 'var(--lh-relaxed)',
       },
-      keyframes: {
-        fadeIn: {
-          '0%': { opacity: '0' },
-          '100%': { opacity: '1' },
-        },
-        fadeInUp: {
-          '0%': { opacity: '0', transform: 'translateY(30px)' },
-          '100%': { opacity: '1', transform: 'translateY(0)' },
-        },
-        float: {
-          '0%, 100%': { transform: 'translateY(0)' },
-          '50%': { transform: 'translateY(-12px)' },
-        }
-      }
+      borderRadius: {
+        xs: 'var(--radius-xs)',
+        sm: 'var(--radius-sm)',
+        md: 'var(--radius-md)',
+        lg: 'var(--radius-lg)',
+        xl: 'var(--radius-xl)',
+        pill: 'var(--radius-pill)',
+      },
+      boxShadow: {
+        hairline: 'var(--shadow-hairline)',
+        sm: 'var(--shadow-sm)',
+        md: 'var(--shadow-md)',
+        lg: 'var(--shadow-lg)',
+        accent: 'var(--shadow-accent)',
+      },
+      transitionTimingFunction: {
+        out: 'var(--ease-out)',
+        'in-out': 'var(--ease-in-out)',
+      },
     },
   },
   plugins: [],

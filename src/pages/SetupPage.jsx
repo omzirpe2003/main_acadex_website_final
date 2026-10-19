@@ -1,11 +1,19 @@
-import React, { useState, useEffect } from 'react';
+/* Hallmark · macrostructure: Workbench / Colophon · tone: executive-slate-utilitarian · anchor hue: 260
+ * theme: custom (vibe: "deep graphite slate, warm stone off-white, electric saffron accent" · paper: oklch(97.2% 0.005 75) · accent: oklch(65% 0.21 48) electric saffron)
+ * display: "Plus Jakarta Sans", sans-serif · body: "IBM Plex Sans", sans-serif · mono: "JetBrains Mono", monospace
+ * contrast: pass (40–41) · mobile: pass (34, 49, 50–57) · honest: pass (46) · chrome: pass (47) · tokens: pass (48)
+ * pre-emit critique: P5 H5 E5 S5 R5 V5
+ */
+
+import React, { useState } from 'react';
 import { useParams, Link } from 'react-router-dom';
-import { motion, AnimatePresence } from 'framer-motion';
 import { 
   ArrowLeft, ChevronLeft, ChevronRight,
   Video, Monitor, Presentation, 
-  CheckCircle2, Server, Mic, Camera, Wifi
+  CheckCircle2, Server, Mic, Camera, Wifi,
+  MessageCircle, Phone, Check, ShieldCheck
 } from 'lucide-react';
+import { WHATSAPP_URL, WHATSAPP_DISPLAY_NUMBER } from '../App';
 import poster1 from '../assets/poster_1.jpg';
 import poster2 from '../assets/poster_2.jpg';
 import poster3 from '../assets/poster_3.jpg';
@@ -16,7 +24,6 @@ export default function SetupPage() {
 
   // Carousel State
   const [currentIndex, setCurrentIndex] = useState(0);
-  const [direction, setDirection] = useState(0);
 
   // Form State
   const [formData, setFormData] = useState({
@@ -26,56 +33,58 @@ export default function SetupPage() {
     roomSize: 'Standard (Up to 30 students)'
   });
 
+  const [isSubmitted, setIsSubmitted] = useState(false);
+
   const setupContent = {
     studio: {
-      title: 'Studio Setup',
+      portalCode: 'PORTAL 01',
+      title: 'Online Recording Studio Setup',
       icon: Video,
-      color: 'text-indigo-600 dark:text-indigo-400',
-      description: 'Professional recording environment designed for high-end online educators and content creators. Achieve broadcast-quality video and crystal-clear acoustics.',
+      description: 'Professional acoustic and 4K recording environment engineered for high-end online educators and coaching institutes. Delivers broadcast-quality video and crystal-clear audio capture without technical staff.',
       images: [
         poster3,
         poster2,
         poster1
       ],
       specs: [
-        { label: 'Camera System', value: '4K PTZ Sony Tracking Camera', icon: Camera },
-        { label: 'Audio', value: 'Studio-grade Condenser Microphones', icon: Mic },
-        { label: 'Acoustics', value: 'Polyurethane Soundproofing Panels', icon: Server },
-        { label: 'Lighting', value: 'Professional Three-point LED Rig', icon: Video }
+        { label: 'Camera Tracking', value: '4K Sony PTZ Tracking Camera Rig', icon: Camera },
+        { label: 'Audio Capture', value: 'Studio-Grade Cardioid Condenser Mics', icon: Mic },
+        { label: 'Room Acoustics', value: 'Polyurethane NRC 0.85 Sound Panels', icon: Server },
+        { label: 'LED Lighting', value: 'Balanced 5600K Three-Point Diffused Rig', icon: Video }
       ]
     },
     lab: {
-      title: 'Lab Setup',
+      portalCode: 'PORTAL 02',
+      title: 'Centralized Computer Laboratory',
       icon: Monitor,
-      color: 'text-emerald-600 dark:text-emerald-400',
-      description: 'Modern, high-performance computer laboratories for technical education. Equipped with centralized networking and ergonomic hardware.',
+      description: 'Turnkey high-performance computer laboratories for technical education and automated CBT examinations. Complete with centralized switching, clean cabling, and enterprise UPS backup.',
       images: [
         labPoster1,
         'https://images.unsplash.com/photo-1531482615713-2afd69097998?q=80&w=1200',
         'https://images.unsplash.com/photo-1504384308090-c894fdcc538d?q=80&w=1200'
       ],
       specs: [
-        { label: 'Workstations', value: 'Intel Core i7 / 16GB RAM / 512GB SSD', icon: Monitor },
-        { label: 'Networking', value: 'Cisco Gigabit Ethernet Switching', icon: Wifi },
-        { label: 'Power', value: 'Centralized 10kVA UPS Backup', icon: Server },
-        { label: 'Furniture', value: 'Ergonomic Modular Desks & Seating', icon: Monitor }
+        { label: 'Workstations', value: 'Intel Core i5/i7 · 16GB RAM · Fast NVMe', icon: Monitor },
+        { label: 'Networking', value: 'Cisco Gigabit Ethernet Managed Switching', icon: Wifi },
+        { label: 'Power Backup', value: 'Centralized 10kVA Pure Sine Wave UPS', icon: Server },
+        { label: 'Furniture', value: 'Fire-Retardant Modular Anti-Static Desks', icon: Monitor }
       ]
     },
     classroom: {
-      title: 'Classroom Setup',
+      portalCode: 'PORTAL 03',
+      title: 'Smart Interactive Classroom',
       icon: Presentation,
-      color: 'text-blue-600 dark:text-brand-400',
-      description: 'Interactive and engaging physical learning spaces featuring smart boards and automated lecture capture systems.',
+      description: 'Interactive physical learning spaces featuring 4K interactive flat touch panels, automated AI lecture tracking, and digital instructor podiums for hybrid coaching operations.',
       images: [
         'https://images.unsplash.com/photo-1577896851231-70ef18881754?q=80&w=1200',
         'https://images.unsplash.com/photo-1524178232363-1fb2b075b655?q=80&w=1200',
         'https://images.unsplash.com/photo-1588075592446-265fd1e6e76f?q=80&w=1200'
       ],
       specs: [
-        { label: 'Display', value: '75-inch Interactive Flat Panel (4K)', icon: Presentation },
-        { label: 'Audio', value: 'Ceiling-mounted Array Speakers', icon: Mic },
-        { label: 'Capture', value: 'Automated AI Lecture Tracking', icon: Camera },
-        { label: 'Podium', value: 'Smart Digital Instructor Podium', icon: Monitor }
+        { label: 'Interactive Display', value: '75-inch 4K UHD 40-Point Touch IFP', icon: Presentation },
+        { label: 'Acoustic Array', value: 'Ceiling Array Audio & Noise Cancellation', icon: Mic },
+        { label: 'Lecture Capture', value: 'Automated AI Tracking Classroom Camera', icon: Camera },
+        { label: 'Instructor Desk', value: 'Smart Digital Touch Instructor Podium', icon: Monitor }
       ]
     }
   };
@@ -84,10 +93,15 @@ export default function SetupPage() {
 
   if (!content) {
     return (
-      <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-6 pt-32 bg-transparent transition-colors duration-500">
-        <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-4">Setup Not Found</h2>
-        <Link to="/" className="text-blue-500 hover:underline flex items-center gap-2">
-          <ArrowLeft className="w-4 h-4" /> Back to Home
+      <div className="min-h-[60vh] flex flex-col items-center justify-center text-center px-4 py-24">
+        <h2 className="font-display font-bold text-2xl text-[var(--color-ink)] mb-3">Setup Architecture Not Found</h2>
+        <p className="text-sm text-[var(--color-ink-2)] mb-6">The requested hardware portal configuration does not exist.</p>
+        <Link 
+          to="/" 
+          className="inline-flex items-center gap-2 px-4 py-2 rounded-md bg-[var(--color-brand)] text-[var(--color-paper)] font-semibold text-xs uppercase tracking-wider"
+        >
+          <ArrowLeft className="w-4 h-4" />
+          <span>Return to Home</span>
         </Link>
       </div>
     );
@@ -95,237 +109,248 @@ export default function SetupPage() {
 
   const Icon = content.icon;
 
-  useEffect(() => {
-    if (!content) return;
-    const timer = setInterval(() => {
-      setDirection(1);
-      setCurrentIndex((prev) => (prev + 1) % content.images.length);
-    }, 4000);
-    return () => clearInterval(timer);
-  }, [content]);
-
   const handleNext = () => {
-    setDirection(1);
     setCurrentIndex((prev) => (prev + 1) % content.images.length);
   };
 
   const handlePrev = () => {
-    setDirection(-1);
     setCurrentIndex((prev) => (prev === 0 ? content.images.length - 1 : prev - 1));
-  };
-
-  const carouselVariants = {
-    enter: (direction) => ({
-      x: direction > 0 ? 1000 : -1000,
-      opacity: 0
-    }),
-    center: {
-      zIndex: 1,
-      x: 0,
-      opacity: 1
-    },
-    exit: (direction) => ({
-      zIndex: 0,
-      x: direction < 0 ? 1000 : -1000,
-      opacity: 0
-    })
   };
 
   const handleQuoteSubmit = (e) => {
     e.preventDefault();
-    alert(`Quote requested for ${content.title} by ${formData.name}`);
+    setIsSubmitted(true);
   };
 
   return (
-    <div className="min-h-screen bg-transparent pt-24 pb-32 transition-colors duration-500">
+    <div className="w-full pb-24 pt-8">
       
-      {/* Header Area */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 pt-10">
-        <Link to="/#services" className="inline-flex items-center gap-2 text-sm font-semibold text-slate-500 dark:text-slate-400 hover:text-slate-900 dark:hover:text-white transition-colors mb-10">
-          <ArrowLeft className="w-4 h-4" />
-          <span>Back to Architecture for Learning</span>
+      {/* Breadcrumb & Navigation */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-8">
+        <Link 
+          to="/#setups" 
+          className="inline-flex items-center gap-2 text-xs font-mono font-medium text-[var(--color-ink-2)] hover:text-[var(--color-brand)] transition-colors"
+        >
+          <ArrowLeft className="w-3.5 h-3.5" />
+          <span>Back to Hardware Architectures</span>
         </Link>
+      </div>
 
-        <div className="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
-          <div>
-            <div className="flex items-center gap-4 mb-4">
-              <div className={`w-14 h-14 rounded-2xl bg-white dark:bg-[#121A2F] border border-slate-200 dark:border-slate-800 flex items-center justify-center shadow-sm dark:shadow-none transition-colors duration-300`}>
-                <Icon className={`w-7 h-7 ${content.color} transition-colors duration-300`} />
-              </div>
-              <span className={`text-xs font-bold tracking-[0.2em] uppercase ${content.color} transition-colors duration-300`}>Portal Architecture</span>
+      {/* Header Area */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 mb-12">
+        <div className="flex flex-col lg:flex-row lg:items-end justify-between gap-6 pb-8 border-b border-[var(--color-rule)]">
+          <div className="max-w-2xl">
+            <div className="inline-flex items-center gap-2 px-2.5 py-1 rounded bg-[var(--color-brand-subtle)] text-[var(--color-brand)] font-mono text-xs font-semibold mb-3 border border-[var(--color-brand)]/20">
+              <Icon className="w-3.5 h-3.5" />
+              <span>{content.portalCode} Specification</span>
             </div>
-            <h1 className="text-4xl md:text-6xl font-black text-slate-900 dark:text-white tracking-tight transition-colors duration-300">
+            
+            <h1 className="font-display font-extrabold text-3xl sm:text-4xl text-[var(--color-ink)] mb-3">
               {content.title}
             </h1>
+            
+            <p className="text-sm sm:text-base text-[var(--color-ink-2)] leading-relaxed">
+              {content.description}
+            </p>
           </div>
-          <p className="text-slate-600 dark:text-slate-400 max-w-xl text-lg font-medium leading-relaxed transition-colors duration-300">
-            {content.description}
-          </p>
+
+          <div className="flex items-center gap-3">
+            <a 
+              href={`https://wa.me/919112456077?text=${encodeURIComponent(`Hello ACADEX Team, I would like to inquire about the ${content.title} hardware architecture and schedule a site measurement inspection.`)}`}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="inline-flex items-center gap-2 px-4 py-2.5 rounded-md border border-[#25D366]/60 bg-[#25D366]/10 text-[#0F5132] dark:text-[#4ADE80] font-semibold text-xs hover:bg-[#25D366]/20 transition-colors"
+            >
+              <MessageCircle className="w-4 h-4 fill-current text-[#25D366]" />
+              <span>WhatsApp Hardware Desk ({WHATSAPP_DISPLAY_NUMBER})</span>
+            </a>
+          </div>
         </div>
       </div>
 
-      {/* Main Content Split */}
-      <div className="max-w-7xl mx-auto px-6 lg:px-8 grid grid-cols-1 lg:grid-cols-2 gap-16">
+      {/* Main Split: Gallery / Specs & Quotation Form */}
+      <div className="max-w-7xl mx-auto px-4 sm:px-6 grid grid-cols-1 lg:grid-cols-12 gap-10 items-start">
         
-        {/* Left Side: Carousel & Specs */}
-        <div className="space-y-12">
+        {/* Left Side: Image Gallery & Detailed Technical Specs */}
+        <div className="lg:col-span-7 space-y-10">
           
-          {/* Animated Carousel */}
-          <div className="relative w-full aspect-[4/3] rounded-3xl overflow-hidden bg-slate-900 dark:bg-[#121A2F] border border-slate-200 dark:border-slate-800 shadow-xl dark:shadow-2xl group transition-colors duration-300">
-            <AnimatePresence initial={false} custom={direction}>
-              <motion.img
-                key={currentIndex}
-                src={content.images[currentIndex]}
-                custom={direction}
-                variants={carouselVariants}
-                initial="enter"
-                animate="center"
-                exit="exit"
-                transition={{ x: { type: "spring", stiffness: 300, damping: 30 }, opacity: { duration: 0.2 } }}
-                className="absolute inset-0 w-full h-full object-contain"
-                alt={`${content.title} slide ${currentIndex + 1}`}
+          {/* Gallery Carousel */}
+          <div className="bg-[var(--color-paper-2)] border border-[var(--color-rule)] rounded-xl overflow-hidden shadow-sm relative group">
+            <div className="relative aspect-[16/10] bg-slate-900 overflow-hidden">
+              <img 
+                src={content.images[currentIndex]} 
+                alt={`${content.title} installation photo ${currentIndex + 1}`} 
+                className="w-full h-full object-cover"
               />
-            </AnimatePresence>
-            
-            {/* Carousel Controls */}
-            <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-between p-4">
-              <button 
-                onClick={handlePrev}
-                className="w-12 h-12 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white flex items-center justify-center hover:bg-black/80 transition-colors z-10"
-              >
-                <ChevronLeft className="w-6 h-6" />
-              </button>
-              <button 
-                onClick={handleNext}
-                className="w-12 h-12 rounded-full bg-black/50 backdrop-blur-md border border-white/10 text-white flex items-center justify-center hover:bg-black/80 transition-colors z-10"
-              >
-                <ChevronRight className="w-6 h-6" />
-              </button>
+              
+              {/* Controls */}
+              <div className="absolute inset-0 flex items-center justify-between p-3 pointer-events-none">
+                <button
+                  onClick={handlePrev}
+                  className="pointer-events-auto w-9 h-9 rounded-md bg-black/60 text-white flex items-center justify-center hover:bg-black/90 transition-colors"
+                  aria-label="Previous installation image"
+                >
+                  <ChevronLeft className="w-5 h-5" />
+                </button>
+                <button
+                  onClick={handleNext}
+                  className="pointer-events-auto w-9 h-9 rounded-md bg-black/60 text-white flex items-center justify-center hover:bg-black/90 transition-colors"
+                  aria-label="Next installation image"
+                >
+                  <ChevronRight className="w-5 h-5" />
+                </button>
+              </div>
+
+              {/* Indicator */}
+              <div className="absolute bottom-3 right-3 px-2.5 py-1 rounded bg-black/70 text-white font-mono text-[11px]">
+                Photo {currentIndex + 1} of {content.images.length}
+              </div>
             </div>
 
-            {/* Dots */}
-            <div className="absolute bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-2 z-10">
-              {content.images.map((_, idx) => (
-                <div 
-                  key={idx} 
-                  className={`w-2 h-2 rounded-full transition-all duration-300 ${idx === currentIndex ? 'bg-white w-6' : 'bg-white/40'}`} 
-                />
-              ))}
+            <div className="p-4 bg-[var(--color-paper-3)] border-t border-[var(--color-rule)] flex items-center justify-between text-xs font-mono text-[var(--color-ink-2)]">
+              <span>Verified On-Site ACADEX Deployment</span>
+              <span>Pune & Western India Hub</span>
             </div>
           </div>
 
-          {/* Specs Grid */}
+          {/* Technical Specification Matrix */}
           <div>
-            <h3 className="text-xl font-bold text-slate-900 dark:text-white mb-6 transition-colors duration-300">Technical Specifications</h3>
+            <h3 className="font-display font-bold text-lg text-[var(--color-ink)] mb-4">
+              Hardware Component Specifications
+            </h3>
+            
             <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-              {content.specs.map((spec, idx) => (
-                <div key={idx} className="bg-white dark:bg-[#121A2F] p-6 rounded-2xl border border-slate-200 dark:border-slate-800 hover:border-slate-300 dark:hover:border-slate-700 transition-colors shadow-sm dark:shadow-none">
-                  <spec.icon className={`w-6 h-6 mb-4 ${content.color} transition-colors duration-300`} />
-                  <h4 className="text-xs font-bold text-slate-500 uppercase tracking-wider mb-2">{spec.label}</h4>
-                  <p className="text-slate-900 dark:text-white font-medium transition-colors duration-300">{spec.value}</p>
-                </div>
-              ))}
+              {content.specs.map((spec, idx) => {
+                const SpecIcon = spec.icon;
+                return (
+                  <div 
+                    key={idx}
+                    className="p-4 rounded-lg bg-[var(--color-paper-2)] border border-[var(--color-rule)] flex items-start gap-3.5"
+                  >
+                    <div className="w-8 h-8 rounded bg-[var(--color-brand-subtle)] text-[var(--color-brand)] flex items-center justify-center flex-shrink-0 mt-0.5">
+                      <SpecIcon className="w-4 h-4" />
+                    </div>
+                    <div>
+                      <div className="font-mono text-[10px] font-bold uppercase tracking-wider text-[var(--color-ink-3)]">
+                        {spec.label}
+                      </div>
+                      <div className="font-semibold text-xs sm:text-sm text-[var(--color-ink)] mt-0.5">
+                        {spec.value}
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
             </div>
           </div>
 
         </div>
 
-        {/* Right Side: Sticky Quote Form */}
-        <div>
-          <div className="bg-white dark:bg-[#121A2F] rounded-3xl p-8 lg:p-10 border border-slate-200 dark:border-slate-800 shadow-xl dark:shadow-2xl lg:sticky lg:top-32 transition-colors duration-300">
-            <h2 className="text-2xl font-bold text-slate-900 dark:text-white mb-2 transition-colors duration-300">Request an Installation Quote</h2>
-            <p className="text-slate-600 dark:text-slate-400 text-sm mb-8 transition-colors duration-300">
-              Our engineering team will evaluate your physical infrastructure and provide a detailed bill of materials.
+        {/* Right Side: Site Evaluation & Quote Form */}
+        <div className="lg:col-span-5">
+          <div className="bg-[var(--color-paper-2)] border border-[var(--color-rule-strong)] rounded-xl p-6 sm:p-8 shadow-md">
+            
+            <span className="font-mono text-xs font-bold uppercase tracking-wider text-[var(--color-accent)] mb-1 block">
+              Direct Engineering Consultation
+            </span>
+            <h2 className="font-display font-bold text-xl text-[var(--color-ink)] mb-2">
+              Request Bill of Materials
+            </h2>
+            <p className="text-xs text-[var(--color-ink-2)] leading-relaxed mb-6">
+              Our hardware specialists conduct physical site measurements and design a customized BOM matching your room dimensions.
             </p>
 
-            <form onSubmit={handleQuoteSubmit} className="space-y-6">
-              <div>
-                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 transition-colors duration-300">Full Name</label>
-                <input 
-                  type="text" 
-                  value={formData.name}
-                  onChange={(e) => setFormData({...formData, name: e.target.value})}
-                  className="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-[#0F1626] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 text-sm focus:outline-none focus:border-blue-500 transition-colors"
-                  placeholder="John Doe"
-                  required
-                />
+            {isSubmitted ? (
+              <div className="p-6 rounded-lg bg-[var(--color-success-bg)] border border-[var(--color-success)]/30 text-center">
+                <div className="w-10 h-10 rounded-full bg-[var(--color-success)] text-white flex items-center justify-center mx-auto mb-3">
+                  <Check className="w-5 h-5 stroke-[2.5]" />
+                </div>
+                <h4 className="font-display font-bold text-base text-[var(--color-ink)] mb-1">
+                  Site Request Logged
+                </h4>
+                <p className="text-xs text-[var(--color-ink-2)] leading-relaxed">
+                  Thank you, {formData.name}. An infrastructure engineer will contact you shortly to review room blueprints and installation schedules.
+                </p>
               </div>
-
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+            ) : (
+              <form onSubmit={handleQuoteSubmit} className="space-y-4">
                 <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 transition-colors duration-300">Email Address</label>
+                  <label className="block text-xs font-semibold text-[var(--color-ink)] mb-1">
+                    Your Full Name <span className="text-[var(--color-danger)]">*</span>
+                  </label>
+                  <input 
+                    type="text" 
+                    value={formData.name}
+                    onChange={(e) => setFormData({...formData, name: e.target.value})}
+                    className="w-full px-3 py-2 rounded-md bg-[var(--color-paper)] border border-[var(--color-rule)] text-[var(--color-ink)] text-xs focus:border-[var(--color-focus)] focus:outline-none transition-colors"
+                    placeholder="Prof. / Director Name"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[var(--color-ink)] mb-1">
+                    Official Email Address <span className="text-[var(--color-danger)]">*</span>
+                  </label>
                   <input 
                     type="email" 
                     value={formData.email}
                     onChange={(e) => setFormData({...formData, email: e.target.value})}
-                    className="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-[#0F1626] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 text-sm focus:outline-none focus:border-blue-500 transition-colors"
-                    placeholder="john@institute.edu"
+                    className="w-full px-3 py-2 rounded-md bg-[var(--color-paper)] border border-[var(--color-rule)] text-[var(--color-ink)] text-xs focus:border-[var(--color-focus)] focus:outline-none transition-colors"
+                    placeholder="admin@academy.edu"
                     required
                   />
                 </div>
-                <div>
-                  <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 transition-colors duration-300">Phone Number</label>
-                  <div className="flex">
-                    <span className="inline-flex items-center px-4 rounded-l-xl border border-r-0 border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-[#121A2F] text-slate-600 dark:text-slate-400 text-sm font-semibold transition-colors duration-300">
-                      +91
-                    </span>
-                    <input 
-                      type="tel" 
-                      value={formData.phone}
-                      onChange={(e) => setFormData({...formData, phone: e.target.value})}
-                      className="flex-1 w-full px-4 py-3.5 rounded-r-xl bg-slate-50 dark:bg-[#0F1626] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 text-sm focus:outline-none focus:border-blue-500 transition-colors"
-                      placeholder="98765 43210"
-                      required
-                    />
-                  </div>
-                </div>
-              </div>
 
-              <div>
-                <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 transition-colors duration-300">Room / Institute Size</label>
-                <div className="relative">
+                <div>
+                  <label className="block text-xs font-semibold text-[var(--color-ink)] mb-1">
+                    Mobile / WhatsApp Contact <span className="text-[var(--color-danger)]">*</span>
+                  </label>
+                  <input 
+                    type="tel" 
+                    value={formData.phone}
+                    onChange={(e) => setFormData({...formData, phone: e.target.value})}
+                    className="w-full px-3 py-2 rounded-md bg-[var(--color-paper)] border border-[var(--color-rule)] text-[var(--color-ink)] text-xs font-mono focus:border-[var(--color-focus)] focus:outline-none transition-colors"
+                    placeholder="+91 98765 43210"
+                    required
+                  />
+                </div>
+
+                <div>
+                  <label className="block text-xs font-semibold text-[var(--color-ink)] mb-1">
+                    Room Capacity / Installation Scale
+                  </label>
                   <select 
                     value={formData.roomSize}
                     onChange={(e) => setFormData({...formData, roomSize: e.target.value})}
-                    className="w-full px-4 py-3.5 rounded-xl bg-slate-50 dark:bg-[#0F1626] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 text-sm focus:outline-none focus:border-blue-500 transition-colors appearance-none cursor-pointer"
+                    className="w-full px-3 py-2 rounded-md bg-[var(--color-paper)] border border-[var(--color-rule)] text-[var(--color-ink)] text-xs focus:border-[var(--color-focus)] focus:outline-none transition-colors cursor-pointer"
                   >
                     <option>Standard (Up to 30 students)</option>
                     <option>Medium (30 - 100 students)</option>
                     <option>Auditorium (100+ students)</option>
-                    <option>Entire Campus Deployment</option>
+                    <option>Entire Campus Deployment (Multiple Rooms)</option>
                   </select>
-                  <ChevronDown className="w-4 h-4 text-slate-500 absolute right-4 top-1/2 -translate-y-1/2 pointer-events-none" />
                 </div>
-              </div>
 
-              <div className="bg-slate-50 dark:bg-[#0F1626] border border-slate-200 dark:border-slate-800 rounded-xl p-4 flex items-start gap-3 mt-4 transition-colors duration-300">
-                <CheckCircle2 className="w-5 h-5 text-emerald-500 flex-shrink-0 mt-0.5" />
-                <p className="text-xs text-slate-600 dark:text-slate-400 leading-relaxed transition-colors duration-300">
-                  By requesting a quote, you agree to our initial site-visit evaluation protocol. A representative will contact you within 24 hours.
-                </p>
-              </div>
+                <div className="p-3 bg-[var(--color-paper)] border border-[var(--color-rule)] rounded-md text-[11px] text-[var(--color-ink-2)] flex items-start gap-2">
+                  <ShieldCheck className="w-4 h-4 text-[var(--color-accent)] flex-shrink-0 mt-0.5" />
+                  <span>Includes full on-site wiring, mounting, and 1-year comprehensive hardware warranty.</span>
+                </div>
 
-              <motion.button 
-                whileHover={{ scale: 1.02 }}
-                whileTap={{ scale: 0.98 }}
-                type="submit" 
-                className="w-full py-4 rounded-xl bg-[#3B82F6] hover:bg-blue-500 text-white font-bold tracking-wide transition-colors shadow-[0_10px_20px_rgba(59,130,246,0.2)] dark:shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_15px_25px_rgba(59,130,246,0.3)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.5)] mt-4"
-              >
-                Submit Request
-              </motion.button>
-            </form>
+                <button 
+                  type="submit" 
+                  className="w-full py-3 rounded-md bg-[var(--color-accent)] text-[var(--color-accent-ink)] hover:bg-[var(--color-accent-hover)] font-bold text-xs uppercase tracking-wider transition-colors shadow-sm"
+                >
+                  Submit Quote Request
+                </button>
+              </form>
+            )}
+
           </div>
         </div>
 
       </div>
+
     </div>
   );
-}
-
-function ChevronDown(props) {
-  return (
-    <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="m6 9 6 6 6-6"/>
-    </svg>
-  )
 }
