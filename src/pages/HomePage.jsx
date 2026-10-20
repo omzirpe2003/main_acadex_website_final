@@ -112,26 +112,45 @@ export default function HomePage({ onScrollToDemo }) {
     e.preventDefault();
     setSubmitting(true);
     setError(null);
+
     const digits = form.mobile.replace(/\D/g, '');
-    if (digits.length < 10) { setError('Enter a valid 10-digit mobile number.'); setSubmitting(false); return; }
+    if (digits.length < 10) {
+      setError('Enter a valid 10-digit mobile number.');
+      setSubmitting(false);
+      return;
+    }
+
+    const bookingPayload = {
+      institute_name: form.instituteName.trim(),
+      full_name: form.fullName.trim(),
+      email: form.email.trim(),
+      mobile: digits,
+      institution_size: form.institutionSize,
+      created_at: new Date().toISOString()
+    };
+
+    // Insert into Supabase demo_bookings
     if (supabase) {
       try {
         const { error: err } = await supabase.from('demo_bookings').insert([{
-          institute_name: form.instituteName.trim(),
-          full_name: form.fullName.trim(),
-          email: form.email.trim(),
-          mobile: digits,
-          institution_size: form.institutionSize
+          institute_name: bookingPayload.institute_name,
+          full_name: bookingPayload.full_name,
+          email: bookingPayload.email,
+          mobile: bookingPayload.mobile,
+          institution_size: bookingPayload.institution_size
         }]);
         if (err) throw err;
-        setSubmitted(true);
-        setForm({ instituteName: '', fullName: '', email: '', mobile: '', institutionSize: '100–500 Students' });
       } catch (err) {
-        setError(err.message || 'Failed to submit. Please WhatsApp us directly.');
-      } finally { setSubmitting(false); }
-    } else {
-      setTimeout(() => { setSubmitting(false); setSubmitted(true); }, 600);
+        console.error('Supabase insert error:', err);
+        setError(err.message || 'Failed to submit. Please try again or WhatsApp us directly.');
+        setSubmitting(false);
+        return;
+      }
     }
+
+    setSubmitting(false);
+    setSubmitted(true);
+    setForm({ instituteName: '', fullName: '', email: '', mobile: '', institutionSize: '100–500 Students' });
   };
 
   return (
@@ -141,8 +160,8 @@ export default function HomePage({ onScrollToDemo }) {
           HERO
           ══════════════════════════════════════════════════════════════════ */}
       <section id="overview" className="relative bg-gradient-to-br from-blue-50 via-white to-sky-50 dark:from-[#070D1E] dark:via-[#0A1226] dark:to-[#070D1E] pt-16 pb-20 overflow-hidden transition-colors duration-200">
-        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/5 dark:bg-blue-500/10 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none" />
-        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sky-500/5 dark:bg-sky-500/10 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3 pointer-events-none" />
+        <div className="absolute top-0 right-0 w-[600px] h-[600px] bg-blue-500/10 dark:bg-blue-500/15 rounded-full blur-3xl -translate-y-1/2 translate-x-1/3 pointer-events-none animate-glow" />
+        <div className="absolute bottom-0 left-0 w-[400px] h-[400px] bg-sky-500/10 dark:bg-sky-500/15 rounded-full blur-3xl translate-y-1/2 -translate-x-1/3 pointer-events-none animate-glow" style={{ animationDelay: '1.8s' }} />
 
         <div className="max-w-6xl mx-auto px-4 sm:px-6">
           <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
@@ -686,14 +705,32 @@ export default function HomePage({ onScrollToDemo }) {
             className="bg-white dark:bg-[#111C38] border border-slate-100 dark:border-slate-800 rounded-3xl p-8 shadow-xl dark:shadow-[0_8px_48px_rgba(0,0,0,0.4)]">
             {submitted ? (
               <div className="text-center py-10">
-                <div className="w-16 h-16 bg-green-100 dark:bg-green-950/50 rounded-full flex items-center justify-center mx-auto mb-4">
+                <div className="w-16 h-16 bg-green-100 dark:bg-green-950/50 rounded-full flex items-center justify-center mx-auto mb-4 animate-glow">
                   <CheckCircle2 className="w-8 h-8 text-green-600 dark:text-green-400" />
                 </div>
-                <h3 className="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2">Demo Booked!</h3>
-                <p className="text-slate-500 dark:text-slate-400 mb-4">Our team will reach you within 24 hours to confirm the visit.</p>
-                <a href={WHATSAPP_URL} target="_blank" rel="noopener noreferrer" className="inline-flex items-center gap-2 px-5 py-3 rounded-xl bg-green-50 dark:bg-green-950/50 text-green-700 dark:text-green-400 font-bold hover:bg-green-100 dark:hover:bg-green-900/50 transition-all border border-green-200 dark:border-green-900">
-                  <MessageCircle className="w-4 h-4 text-green-500" /> Also chat on WhatsApp
-                </a>
+                <h3 className="font-display font-bold text-2xl text-slate-900 dark:text-white mb-2">
+                  Demo booking request is submit successfully
+                </h3>
+                <p className="text-slate-500 dark:text-slate-400 mb-6 max-w-md mx-auto">
+                  Our team will contact you shortly to schedule the on-site walkthrough.
+                </p>
+
+                <div className="flex items-center justify-center gap-3 flex-wrap">
+                  <button
+                    onClick={() => setSubmitted(false)}
+                    className="px-5 py-2.5 rounded-xl bg-slate-100 dark:bg-slate-800 hover:bg-slate-200 dark:hover:bg-slate-700 text-slate-800 dark:text-slate-200 font-semibold text-xs transition-all cursor-pointer"
+                  >
+                    Submit Another Booking
+                  </button>
+                  <a
+                    href={WHATSAPP_URL}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="inline-flex items-center gap-2 px-5 py-2.5 rounded-xl bg-[#25D366] text-white font-bold text-xs hover:bg-[#22C55E] transition-all shadow-md"
+                  >
+                    <MessageCircle className="w-4 h-4 fill-current" /> Instant WhatsApp Confirmation
+                  </a>
+                </div>
               </div>
             ) : (
               <form onSubmit={handleSubmit} className="grid grid-cols-1 sm:grid-cols-2 gap-5">

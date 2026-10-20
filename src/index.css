@@ -120,3 +120,33 @@
 ::-webkit-scrollbar-thumb:hover {
   background: var(--color-ink-3);
 }
+
+/* ── Rich UI Animations ── */
+@keyframes floatSlow {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-8px); }
+}
+
+@keyframes pulseGlow {
+  0%, 100% { opacity: 0.6; transform: scale(1); }
+  50% { opacity: 0.95; transform: scale(1.04); }
+}
+
+@keyframes gradientShift {
+  0% { background-position: 0% 50%; }
+  50% { background-position: 100% 50%; }
+  100% { background-position: 0% 50%; }
+}
+
+.animate-float {
+  animation: floatSlow 4.5s ease-in-out infinite;
+}
+
+.animate-glow {
+  animation: pulseGlow 3.5s ease-in-out infinite;
+}
+
+.animate-gradient {
+  background-size: 200% 200%;
+  animation: gradientShift 6s ease infinite;
+}

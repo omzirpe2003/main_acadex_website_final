@@ -2,7 +2,7 @@
 
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation, useNavigate } from 'react-router-dom';
-import { Sun, Moon, Menu, X, MessageCircle, ExternalLink, Phone } from 'lucide-react';
+import { Sun, Moon, Menu, X, MessageCircle, ExternalLink, Phone, ArrowUp } from 'lucide-react';
 import logoUrl from './assets/logo.jpg';
 import HomePage from './pages/HomePage';
 import SetupPage from './pages/SetupPage';
@@ -32,6 +32,7 @@ export default function App() {
     return false;
   });
   const [menuOpen, setMenuOpen] = useState(false);
+  const [showScrollTop, setShowScrollTop] = useState(false);
   const location = useLocation();
   const navigate = useNavigate();
 
@@ -39,6 +40,22 @@ export default function App() {
     document.documentElement.classList.toggle('dark', isDark);
     localStorage.setItem('acadex_theme', isDark ? 'dark' : 'light');
   }, [isDark]);
+
+  useEffect(() => {
+    const handleScroll = () => {
+      if (window.scrollY > 320) {
+        setShowScrollTop(true);
+      } else {
+        setShowScrollTop(false);
+      }
+    };
+    window.addEventListener('scroll', handleScroll, { passive: true });
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, []);
+
+  const scrollToTop = () => {
+    window.scrollTo({ top: 0, behavior: 'smooth' });
+  };
 
   const scrollToDemo = (e) => {
     if (e) e.preventDefault();
@@ -213,6 +230,20 @@ export default function App() {
 
       {/* ── STICKY FLOAT BAR ────────────────────────────────────────────────── */}
       <aside className="fixed bottom-4 left-4 right-4 sm:left-auto sm:right-6 sm:bottom-6 z-30 flex items-center gap-2 p-1.5 bg-[#0F172A]/95 backdrop-blur-md rounded-xl shadow-2xl border border-white/10">
+        {showScrollTop && (
+          <>
+            <button
+              onClick={scrollToTop}
+              className="flex items-center gap-1.5 px-3 py-2 rounded-lg bg-white/10 hover:bg-blue-600 text-white font-bold text-xs transition-all duration-200 cursor-pointer group"
+              title="Scroll to Top"
+              aria-label="Scroll back to top"
+            >
+              <ArrowUp className="w-4 h-4 group-hover:-translate-y-0.5 transition-transform" />
+              <span className="hidden md:inline">Top</span>
+            </button>
+            <div className="h-5 w-px bg-white/20" />
+          </>
+        )}
         <a
           href={WHATSAPP_URL}
           target="_blank"

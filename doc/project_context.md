@@ -1,7 +1,7 @@
 ---
 last_updated: 2026-10-20
 updated_by: agent
-trigger: Integrated user's actual uploaded PDFs (ionic-equilibrium.pdf and rotational-dynamics.pdf) directly into PPTFlow preview viewer
+trigger: Added smooth animations (glow, float, gradient), floating Scroll-to-Top button, and persistent demo booking database receipt & view log
 file_count: 30
 table_count: 1
 ---
