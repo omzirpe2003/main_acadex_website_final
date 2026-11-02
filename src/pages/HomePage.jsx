@@ -2,8 +2,9 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import { motion, AnimatePresence, useMotionValue, useSpring } from 'framer-motion';
 import { supabase } from '../supabaseClient';
-import { 
-  Users, LineChart, CalendarCheck, PieChart, 
+import { Download } from "lucide-react";
+import {
+  Users, LineChart, CalendarCheck, PieChart,
   Sparkles, LayoutGrid, FileEdit, FileDown,
   UserPlus, PhoneCall, TrendingUp, CircleDollarSign,
   Waypoints, Cloud, ShieldCheck, User, MessageCircle, ClipboardList
@@ -87,13 +88,13 @@ export default function HomePage() {
   const handleBookingSubmit = async (e) => {
     e.preventDefault();
     setIsSubmitting(true);
-    
+
     if (supabase) {
       try {
         const { error } = await supabase
           .from('demo_bookings')
           .insert([
-            { 
+            {
               institute_name: formData.instituteName,
               full_name: formData.fullName,
               email: formData.email,
@@ -101,9 +102,9 @@ export default function HomePage() {
               institution_size: formData.institutionSize
             }
           ]);
-          
+
         if (error) throw error;
-        
+
         setShowPopup(true);
         setTimeout(() => {
           setShowPopup(false);
@@ -175,7 +176,7 @@ export default function HomePage() {
     'https://images.unsplash.com/photo-1460925895917-afdab827c52f?q=80&w=1200',
     'https://images.unsplash.com/photo-1504868584819-f8e8b4b6d7e3?q=80&w=1200'
   ];
-  
+
   const testlabImages = [
     'https://images.unsplash.com/photo-1551434678-e076c223a692?q=80&w=1200',
     'https://images.unsplash.com/photo-1543286386-2e659306cd6c?q=80&w=1200',
@@ -190,13 +191,13 @@ export default function HomePage() {
 
   return (
     <div className="w-full min-h-screen pb-32 overflow-hidden bg-transparent">
-      
+
       {/* Hero Section */}
       <section className="pt-40 pb-12 px-6">
         <div className="max-w-4xl mx-auto text-center">
-          
+
           {/* Animated Logo Container */}
-          <motion.div 
+          <motion.div
             initial={{ scale: 0, opacity: 0, y: 100 }}
             animate={{ scale: 1, opacity: 1, y: 0 }}
             transition={{ type: "spring", stiffness: 150, damping: 15, delay: 0.1 }}
@@ -204,18 +205,18 @@ export default function HomePage() {
           >
             {/* Continuous Floating/Glowing Animation */}
             <motion.div
-              animate={{ 
+              animate={{
                 y: [0, -15, 0],
                 boxShadow: [
-                  "0px 0px 40px rgba(59,130,246,0.3)", 
-                  "0px 0px 80px rgba(59,130,246,0.7)", 
+                  "0px 0px 40px rgba(59,130,246,0.3)",
+                  "0px 0px 80px rgba(59,130,246,0.7)",
                   "0px 0px 40px rgba(59,130,246,0.3)"
                 ]
               }}
-              transition={{ 
-                repeat: Infinity, 
-                duration: 4, 
-                ease: "easeInOut" 
+              transition={{
+                repeat: Infinity,
+                duration: 4,
+                ease: "easeInOut"
               }}
               className="w-full h-full bg-slate-900 dark:bg-white p-2 rounded-3xl flex items-center justify-center overflow-hidden transition-colors duration-300"
             >
@@ -223,7 +224,7 @@ export default function HomePage() {
             </motion.div>
           </motion.div>
 
-          <motion.h1 
+          <motion.h1
             initial="hidden"
             animate="visible"
             variants={fadeInUp}
@@ -232,7 +233,7 @@ export default function HomePage() {
             MAKE YOUR CLASSROOM <br />
             <span className="text-transparent bg-clip-text bg-gradient-to-r from-cyan-500 via-blue-600 to-purple-600 dark:from-cyan-400 dark:via-blue-500 dark:to-purple-600 animate-gradient-x">SMART WITH ACADEX</span>
           </motion.h1>
-          <motion.p 
+          <motion.p
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             transition={{ duration: 1, delay: 0.3 }}
@@ -240,7 +241,7 @@ export default function HomePage() {
           >
             Next-generation educational infrastructure. Seamless automation for the modern learning environment.
           </motion.p>
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0, y: 20 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.7, delay: 0.4 }}
@@ -258,7 +259,7 @@ export default function HomePage() {
 
       {/* Innovative Solutions (Software Detailed) */}
       <section id="softwares" className="py-10 px-6 max-w-7xl mx-auto overflow-hidden">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -275,7 +276,7 @@ export default function HomePage() {
 
         {/* BatchFlow Row */}
         <div className="flex flex-col lg:flex-row items-center gap-16 py-16 border-b border-slate-200 dark:border-slate-800 overflow-hidden transition-colors duration-300">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
@@ -291,8 +292,8 @@ export default function HomePage() {
                 <p className="text-slate-600 dark:text-slate-400 text-base md:text-lg font-medium transition-colors duration-300">Managing Institute Software</p>
               </div>
             </div>
-            
-            <motion.div 
+
+            <motion.div
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
@@ -308,7 +309,7 @@ export default function HomePage() {
                 { icon: ClipboardList, label: "Test\nManagement" },
               ].map((feature, idx) => (
                 <motion.div key={idx} variants={staggerItem} className="flex flex-col items-center text-center group cursor-pointer">
-                  <motion.div 
+                  <motion.div
                     whileHover={{ scale: 1.15, rotate: [0, -10, 10, -10, 0], y: -5 }}
                     transition={{ type: "spring", stiffness: 300 }}
                     className="w-14 h-14 rounded-full bg-white dark:bg-[#121A2F] border border-slate-200 dark:border-[#1E293B] flex items-center justify-center mb-3 group-hover:bg-slate-50 dark:group-hover:bg-[#1E293B] group-hover:border-blue-500/50 group-hover:shadow-[0_0_15px_rgba(59,130,246,0.5)] transition-all"
@@ -319,19 +320,34 @@ export default function HomePage() {
                 </motion.div>
               ))}
             </motion.div>
-            
+
             <div className="mt-8">
-              <p className="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-6 transition-colors duration-300">Simplify operations. Empower growth.</p>
-              <MagneticButton 
-                href="#demo-form" 
-                className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#3B82F6] hover:bg-blue-500 text-white font-bold tracking-wide transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]"
-              >
-                Book Demo
-              </MagneticButton>
+              <p className="text-lg font-semibold text-blue-600 dark:text-blue-400 mb-6 transition-colors duration-300">
+                Simplify operations. Empower growth.
+              </p>
+
+              <div className="flex flex-wrap items-center gap-5 sm:gap-10">
+                <MagneticButton
+                  href="#demo-form"
+                  className="inline-flex items-center justify-center px-8 py-3.5 rounded-xl bg-[#3B82F6] hover:bg-blue-500 text-white font-bold tracking-wide transition-all shadow-[0_0_20px_rgba(59,130,246,0.3)] hover:shadow-[0_0_30px_rgba(59,130,246,0.5)]"
+                >
+                  Book Demo
+                </MagneticButton>
+
+                <MagneticButton
+                  href="https://tjweahfxyvggkvkecnwp.supabase.co/storage/v1/object/public/app/app-arm64-v8a-release.apk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="inline-flex items-center justify-center gap-2 px-8 py-3.5 rounded-xl border border-blue-500/50 text-blue-600 dark:text-blue-400 hover:bg-blue-500/10 font-bold tracking-wide transition-all"
+                >
+                  <Download className="w-4 h-4" />
+                  Get App
+                </MagneticButton>
+              </div>
             </div>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
@@ -339,7 +355,7 @@ export default function HomePage() {
             className="w-full lg:w-1/2 perspective-[1000px]"
           >
             {/* Laptop Mockup with 3D Tilt */}
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.05, rotateY: -5, rotateX: 5, z: 50 }}
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
               className="relative mx-auto w-full max-w-[600px] mt-8 lg:mt-0 cursor-pointer"
@@ -356,7 +372,7 @@ export default function HomePage() {
 
         {/* TestLab Row */}
         <div className="flex flex-col lg:flex-row-reverse items-center gap-16 py-16 border-b border-slate-200 dark:border-slate-800 overflow-hidden transition-colors duration-300">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
@@ -365,7 +381,7 @@ export default function HomePage() {
           >
             <div className="flex items-center gap-4 mb-2">
               <div className="w-16 h-16 bg-gradient-to-br from-indigo-500 to-purple-500 rounded-2xl flex items-center justify-center shadow-lg shadow-indigo-500/20">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-white"><path d="M10 2v7.31"/><path d="M14 9.3V1.99"/><path d="M8.5 2h7"/><path d="M14 9.3a6.5 6.5 0 1 1-4 0"/><path d="M5.52 16h12.96"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-white"><path d="M10 2v7.31" /><path d="M14 9.3V1.99" /><path d="M8.5 2h7" /><path d="M14 9.3a6.5 6.5 0 1 1-4 0" /><path d="M5.52 16h12.96" /></svg>
               </div>
               <div>
                 <div className="flex flex-wrap items-center gap-4">
@@ -375,8 +391,8 @@ export default function HomePage() {
                 <p className="text-slate-600 dark:text-slate-400 text-base md:text-lg font-medium mt-1 transition-colors duration-300">AI-Powered Test Generator</p>
               </div>
             </div>
-            
-            <motion.div 
+
+            <motion.div
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
@@ -390,7 +406,7 @@ export default function HomePage() {
                 { icon: FileDown, label: "Instant Test\nExport" },
               ].map((feature, idx) => (
                 <motion.div key={idx} variants={staggerItem} className="flex flex-col items-center text-center group cursor-pointer">
-                  <motion.div 
+                  <motion.div
                     whileHover={{ scale: 1.15, rotate: 180, y: -5 }}
                     transition={{ type: "spring", stiffness: 200, damping: 10 }}
                     className="w-14 h-14 rounded-full bg-white dark:bg-[#121A2F] border border-slate-200 dark:border-[#1E293B] flex items-center justify-center mb-3 group-hover:bg-slate-50 dark:group-hover:bg-[#1E293B] group-hover:border-indigo-500/50 group-hover:shadow-[0_0_15px_rgba(99,102,241,0.5)] transition-all"
@@ -401,11 +417,11 @@ export default function HomePage() {
                 </motion.div>
               ))}
             </motion.div>
-            
+
             <p className="text-lg font-semibold text-indigo-600 dark:text-indigo-400 transition-colors duration-300">Smarter tests. Better results.</p>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
@@ -413,7 +429,7 @@ export default function HomePage() {
             className="w-full lg:w-1/2 perspective-[1000px]"
           >
             {/* Laptop Mockup with 3D Tilt */}
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.05, rotateY: 5, rotateX: 5, z: 50 }}
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
               className="relative mx-auto w-full max-w-[600px] mt-8 lg:mt-0 cursor-pointer"
@@ -430,7 +446,7 @@ export default function HomePage() {
 
         {/* FamFlow Row */}
         <div className="flex flex-col lg:flex-row items-center gap-16 py-16 border-b border-slate-200 dark:border-slate-800 overflow-hidden transition-colors duration-300">
-          <motion.div 
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
@@ -439,7 +455,7 @@ export default function HomePage() {
           >
             <div className="flex items-center gap-4 mb-2">
               <div className="w-16 h-16 bg-gradient-to-br from-emerald-400 to-teal-500 rounded-2xl flex items-center justify-center shadow-lg shadow-teal-500/20">
-                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-white"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round" className="w-8 h-8 text-white"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2" /><circle cx="9" cy="7" r="4" /><path d="M22 21v-2a4 4 0 0 0-3-3.87" /><path d="M16 3.13a4 4 0 0 1 0 7.75" /></svg>
               </div>
               <div>
                 <div className="flex flex-wrap items-center gap-4">
@@ -449,8 +465,8 @@ export default function HomePage() {
                 <p className="text-slate-600 dark:text-slate-400 text-base md:text-lg font-medium mt-1 transition-colors duration-300">Coaching Institute Marketing Partners</p>
               </div>
             </div>
-            
-            <motion.div 
+
+            <motion.div
               variants={staggerContainer}
               initial="hidden"
               whileInView="visible"
@@ -464,7 +480,7 @@ export default function HomePage() {
                 { icon: CircleDollarSign, label: "Commission\nManagement" },
               ].map((feature, idx) => (
                 <motion.div key={idx} variants={staggerItem} className="flex flex-col items-center text-center group cursor-pointer">
-                  <motion.div 
+                  <motion.div
                     whileHover={{ scale: 1.15, rotate: -15, y: -8 }}
                     transition={{ type: "spring", stiffness: 400, damping: 10 }}
                     className="w-14 h-14 rounded-full bg-white dark:bg-[#121A2F] border border-slate-200 dark:border-[#1E293B] flex items-center justify-center mb-3 group-hover:bg-slate-50 dark:group-hover:bg-[#1E293B] group-hover:border-teal-500/50 group-hover:shadow-[0_0_15px_rgba(45,212,191,0.5)] transition-all"
@@ -475,11 +491,11 @@ export default function HomePage() {
                 </motion.div>
               ))}
             </motion.div>
-            
+
             <p className="text-lg font-semibold text-teal-600 dark:text-teal-400 transition-colors duration-300">Expand your reach. Grow together.</p>
           </motion.div>
-          
-          <motion.div 
+
+          <motion.div
             initial="hidden"
             whileInView="visible"
             viewport={{ once: true, margin: "-100px" }}
@@ -487,7 +503,7 @@ export default function HomePage() {
             className="w-full lg:w-1/2 perspective-[1000px]"
           >
             {/* Laptop Mockup with 3D Tilt */}
-            <motion.div 
+            <motion.div
               whileHover={{ scale: 1.05, rotateY: -5, rotateX: 5, z: 50 }}
               transition={{ type: "spring", stiffness: 200, damping: 20 }}
               className="relative mx-auto w-full max-w-[600px] mt-8 lg:mt-0 cursor-pointer"
@@ -501,9 +517,9 @@ export default function HomePage() {
             </motion.div>
           </motion.div>
         </div>
-        
+
         {/* Bento Box Pillars */}
-        <motion.div 
+        <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -512,41 +528,41 @@ export default function HomePage() {
         >
           {/* Card 2 */}
           <motion.div variants={staggerItem} className="md:col-span-2 rounded-3xl bg-white/80 dark:bg-gradient-to-br dark:from-[#121A2F]/80 dark:to-[#0B1120]/80 backdrop-blur-md border border-slate-200 dark:border-slate-800 p-8 relative overflow-hidden group hover:border-indigo-500/50 transition-colors">
-             <div className="absolute right-0 bottom-0 p-6 opacity-10 dark:opacity-20 group-hover:opacity-100 group-hover:scale-110 transition-all"><Cloud className="w-16 h-16 text-indigo-500" /></div>
-             <h4 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-wide mb-2 z-10 transition-colors">100% Cloud Native</h4>
-             <p className="text-sm text-slate-600 dark:text-slate-400 z-10 relative pr-12 transition-colors">Access your entire campus infrastructure from anywhere, on any device, with zero local servers required.</p>
+            <div className="absolute right-0 bottom-0 p-6 opacity-10 dark:opacity-20 group-hover:opacity-100 group-hover:scale-110 transition-all"><Cloud className="w-16 h-16 text-indigo-500" /></div>
+            <h4 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-wide mb-2 z-10 transition-colors">100% Cloud Native</h4>
+            <p className="text-sm text-slate-600 dark:text-slate-400 z-10 relative pr-12 transition-colors">Access your entire campus infrastructure from anywhere, on any device, with zero local servers required.</p>
           </motion.div>
 
           {/* Card 3 */}
           <motion.div variants={staggerItem} className="rounded-3xl bg-white/80 dark:bg-gradient-to-br dark:from-[#121A2F]/80 dark:to-[#0B1120]/80 backdrop-blur-md border border-slate-200 dark:border-slate-800 p-6 relative overflow-hidden group flex flex-col justify-between hover:border-teal-500/50 transition-colors">
-             <ShieldCheck className="w-8 h-8 text-teal-500 dark:text-teal-400 mb-4 group-hover:scale-125 transition-transform" />
-             <div>
-               <h4 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-wide mb-1 transition-colors">Enterprise Security</h4>
-               <p className="text-xs text-slate-600 dark:text-slate-400 transition-colors">Bank-grade encryption.</p>
-             </div>
+            <ShieldCheck className="w-8 h-8 text-teal-500 dark:text-teal-400 mb-4 group-hover:scale-125 transition-transform" />
+            <div>
+              <h4 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-wide mb-1 transition-colors">Enterprise Security</h4>
+              <p className="text-xs text-slate-600 dark:text-slate-400 transition-colors">Bank-grade encryption.</p>
+            </div>
           </motion.div>
 
           {/* Card 4 (Original) */}
           <motion.div variants={staggerItem} className="rounded-3xl bg-white/80 dark:bg-gradient-to-br dark:from-[#121A2F]/80 dark:to-[#0B1120]/80 backdrop-blur-md border border-slate-200 dark:border-slate-800 p-6 relative overflow-hidden group flex flex-col justify-between hover:border-amber-500/50 transition-colors">
-             <TrendingUp className="w-8 h-8 text-amber-500 dark:text-amber-400 mb-4 group-hover:-translate-y-2 transition-transform" />
-             <div>
-               <h4 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-wide mb-1 transition-colors">Infinite Scale</h4>
-               <p className="text-xs text-slate-600 dark:text-slate-400 transition-colors">Built for massive growth.</p>
-             </div>
+            <TrendingUp className="w-8 h-8 text-amber-500 dark:text-amber-400 mb-4 group-hover:-translate-y-2 transition-transform" />
+            <div>
+              <h4 className="text-lg font-black text-slate-900 dark:text-white uppercase tracking-wide mb-1 transition-colors">Infinite Scale</h4>
+              <p className="text-xs text-slate-600 dark:text-slate-400 transition-colors">Built for massive growth.</p>
+            </div>
           </motion.div>
 
           {/* Card 5 (AI Automation) */}
           <motion.div variants={staggerItem} className="md:col-span-2 rounded-3xl bg-white/80 dark:bg-gradient-to-br dark:from-[#121A2F]/80 dark:to-[#0B1120]/80 backdrop-blur-md border border-slate-200 dark:border-slate-800 p-8 relative overflow-hidden group hover:border-purple-500/50 transition-colors">
-             <div className="absolute right-0 bottom-0 p-6 opacity-10 dark:opacity-20 group-hover:opacity-100 group-hover:scale-110 transition-all"><Sparkles className="w-16 h-16 text-purple-500" /></div>
-             <h4 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-wide mb-2 z-10 transition-colors">AI Automation</h4>
-             <p className="text-sm text-slate-600 dark:text-slate-400 z-10 relative pr-12 transition-colors">Automate routine administrative tasks and generate powerful insights with our built-in intelligence.</p>
+            <div className="absolute right-0 bottom-0 p-6 opacity-10 dark:opacity-20 group-hover:opacity-100 group-hover:scale-110 transition-all"><Sparkles className="w-16 h-16 text-purple-500" /></div>
+            <h4 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-wide mb-2 z-10 transition-colors">AI Automation</h4>
+            <p className="text-sm text-slate-600 dark:text-slate-400 z-10 relative pr-12 transition-colors">Automate routine administrative tasks and generate powerful insights with our built-in intelligence.</p>
           </motion.div>
 
           {/* Card 6 (Seamless Integration) */}
           <motion.div variants={staggerItem} className="md:col-span-2 rounded-3xl bg-white/80 dark:bg-gradient-to-br dark:from-[#121A2F]/80 dark:to-[#0B1120]/80 backdrop-blur-md border border-slate-200 dark:border-slate-800 p-8 relative overflow-hidden group hover:border-blue-500/50 transition-colors">
-             <div className="absolute right-0 bottom-0 p-6 opacity-10 dark:opacity-20 group-hover:opacity-100 group-hover:scale-110 transition-all"><Waypoints className="w-16 h-16 text-blue-500" /></div>
-             <h4 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-wide mb-2 z-10 transition-colors">Seamless Integration</h4>
-             <p className="text-sm text-slate-600 dark:text-slate-400 z-10 relative pr-12 transition-colors">Connect all your tools effortlessly through our open APIs and pre-built software bridges.</p>
+            <div className="absolute right-0 bottom-0 p-6 opacity-10 dark:opacity-20 group-hover:opacity-100 group-hover:scale-110 transition-all"><Waypoints className="w-16 h-16 text-blue-500" /></div>
+            <h4 className="text-xl font-black text-slate-900 dark:text-white uppercase tracking-wide mb-2 z-10 transition-colors">Seamless Integration</h4>
+            <p className="text-sm text-slate-600 dark:text-slate-400 z-10 relative pr-12 transition-colors">Connect all your tools effortlessly through our open APIs and pre-built software bridges.</p>
           </motion.div>
         </motion.div>
 
@@ -554,7 +570,7 @@ export default function HomePage() {
 
       {/* Architecture for Learning (Services) */}
       <section id="services" className="py-20 px-6 max-w-6xl mx-auto overflow-hidden">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -567,7 +583,7 @@ export default function HomePage() {
           </p>
         </motion.div>
 
-        <motion.div 
+        <motion.div
           variants={staggerContainer}
           initial="hidden"
           whileInView="visible"
@@ -581,8 +597,8 @@ export default function HomePage() {
           ].map((setup, idx) => (
             <motion.div key={idx} variants={staggerItem}>
               <Link to={setup.link} className="group block relative h-[320px] rounded-2xl overflow-hidden border border-slate-200 dark:border-slate-800/80 hover:border-slate-400 dark:hover:border-slate-600 transition-colors">
-                <div 
-                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105" 
+                <div
+                  className="absolute inset-0 bg-cover bg-center transition-transform duration-700 group-hover:scale-105"
                   style={{ backgroundImage: `url(${setup.img})` }}
                 />
                 <div className="absolute inset-0 bg-gradient-to-t from-slate-900 via-slate-900/80 dark:from-[#0B1120] dark:via-[#0B1120]/80 to-transparent transition-colors duration-300" />
@@ -598,7 +614,7 @@ export default function HomePage() {
 
       {/* Embedded Demo Form */}
       <section id="demo-form" className="py-20 px-6 max-w-[800px] mx-auto overflow-hidden">
-        <motion.div 
+        <motion.div
           initial="hidden"
           whileInView="visible"
           viewport={{ once: true, margin: "-100px" }}
@@ -615,10 +631,10 @@ export default function HomePage() {
           <form onSubmit={handleBookingSubmit} className="space-y-6">
             <div>
               <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 transition-colors duration-300">Institution Name</label>
-              <input 
-                type="text" 
+              <input
+                type="text"
                 value={formData.instituteName}
-                onChange={(e) => setFormData({...formData, instituteName: e.target.value})}
+                onChange={(e) => setFormData({ ...formData, instituteName: e.target.value })}
                 className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-[#0F1626] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 text-sm focus:outline-none focus:border-blue-500 transition-colors"
                 placeholder="E.g. Greenfield Academy"
                 required
@@ -627,10 +643,10 @@ export default function HomePage() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
               <div>
                 <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 transition-colors duration-300">Full Name</label>
-                <input 
-                  type="text" 
+                <input
+                  type="text"
                   value={formData.fullName}
-                  onChange={(e) => setFormData({...formData, fullName: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, fullName: e.target.value })}
                   className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-[#0F1626] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 text-sm focus:outline-none focus:border-blue-500 transition-colors"
                   placeholder="Dr. Julian Vance"
                   required
@@ -638,10 +654,10 @@ export default function HomePage() {
               </div>
               <div>
                 <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 transition-colors duration-300">Institution Email</label>
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   value={formData.email}
-                  onChange={(e) => setFormData({...formData, email: e.target.value})}
+                  onChange={(e) => setFormData({ ...formData, email: e.target.value })}
                   className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-[#0F1626] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 text-sm focus:outline-none focus:border-blue-500 transition-colors"
                   placeholder="vance@academy.edu"
                   required
@@ -656,10 +672,10 @@ export default function HomePage() {
                   <span className="inline-flex items-center px-4 rounded-l-lg border border-r-0 border-slate-200 dark:border-slate-800 bg-slate-100 dark:bg-[#121A2F] text-slate-600 dark:text-slate-400 text-sm font-semibold transition-colors">
                     +91
                   </span>
-                  <input 
-                    type="tel" 
+                  <input
+                    type="tel"
                     value={formData.mobile}
-                    onChange={(e) => setFormData({...formData, mobile: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
                     className="flex-1 w-full px-4 py-3 rounded-r-lg bg-slate-50 dark:bg-[#0F1626] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 text-sm focus:outline-none focus:border-blue-500 transition-colors"
                     placeholder="98765 43210"
                     required
@@ -669,9 +685,9 @@ export default function HomePage() {
               <div>
                 <label className="block text-xs font-semibold text-slate-600 dark:text-slate-400 mb-2 transition-colors duration-300">Institution Size</label>
                 <div className="relative">
-                  <select 
+                  <select
                     value={formData.institutionSize}
-                    onChange={(e) => setFormData({...formData, institutionSize: e.target.value})}
+                    onChange={(e) => setFormData({ ...formData, institutionSize: e.target.value })}
                     className="w-full px-4 py-3 rounded-lg bg-slate-50 dark:bg-[#0F1626] border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-slate-200 text-sm focus:outline-none focus:border-blue-500 transition-colors appearance-none cursor-pointer"
                   >
                     <option>100 - 500 Students</option>
@@ -684,16 +700,16 @@ export default function HomePage() {
               </div>
             </div>
 
-            <motion.button 
+            <motion.button
               whileHover={{ scale: isSubmitting ? 1 : 1.02 }}
               whileTap={{ scale: isSubmitting ? 1 : 0.98 }}
-              type="submit" 
+              type="submit"
               disabled={isSubmitting}
               className={`w-full py-4 rounded-xl text-white font-bold tracking-wide transition-colors mt-4 shadow-[0_10px_20px_rgba(59,130,246,0.3)] dark:shadow-[0_0_20px_rgba(59,130,246,0.4)] ${isSubmitting ? 'bg-slate-400 cursor-not-allowed opacity-80' : 'bg-[#3B82F6] hover:bg-blue-500 hover:shadow-[0_15px_25px_rgba(59,130,246,0.4)] dark:hover:shadow-[0_0_30px_rgba(59,130,246,0.6)]'}`}
             >
               {isSubmitting ? 'Confirming...' : 'Confirm Reservation'}
             </motion.button>
-            
+
             <p className="text-[10px] text-slate-500 dark:text-slate-600 text-center font-mono mt-6 tracking-widest uppercase transition-colors">
               Secure Transmission via AcadexTech Protocol v2.4
             </p>
@@ -704,13 +720,13 @@ export default function HomePage() {
       {/* Booking Confirmation Popup */}
       <AnimatePresence>
         {showPopup && (
-          <motion.div 
+          <motion.div
             initial={{ opacity: 0 }}
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
             className="fixed inset-0 z-50 flex items-center justify-center p-4 bg-slate-900/40 backdrop-blur-sm"
           >
-            <motion.div 
+            <motion.div
               initial={{ scale: 0.8, opacity: 0 }}
               animate={{ scale: 1, opacity: 1 }}
               exit={{ scale: 0.8, opacity: 0 }}
@@ -739,7 +755,7 @@ export default function HomePage() {
 function ChevronDown(props) {
   return (
     <svg {...props} xmlns="http://www.w3.org/2000/svg" width="24" height="24" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
-      <path d="m6 9 6 6 6-6"/>
+      <path d="m6 9 6 6 6-6" />
     </svg>
   )
 }

@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import { Routes, Route, Link, useLocation } from 'react-router-dom';
 import { motion, useMotionValue, useSpring, AnimatePresence } from 'framer-motion';
-import { Globe, Share2, Clock, Hash, Briefcase, Video, Camera, ArrowRight, Sun, Moon, Menu, X } from 'lucide-react';
+import { Globe, Share2, Clock, Hash, Briefcase, Video, Camera, ArrowRight, Sun, Moon, Menu, X, Download } from 'lucide-react';
 import logoUrl from './assets/logo.jpg';
 
 // Pages
@@ -103,27 +103,27 @@ export default function App() {
 
   return (
     <div className="min-h-screen bg-slate-50 dark:bg-[#0B1120] text-slate-800 dark:text-slate-200 selection:bg-blue-500 selection:text-white flex flex-col font-sans relative overflow-x-hidden transition-colors duration-500">
-      
+
       {/* Background Layer (Parallax Grid + Glowing Orbs) */}
       <div className="fixed inset-0 z-0 pointer-events-none overflow-hidden bg-slate-100 dark:bg-[#070B14] transition-colors duration-500">
         {/* Grid Background */}
-        <div 
-          className="absolute inset-0 opacity-[0.05] dark:opacity-[0.02] mix-blend-multiply dark:mix-blend-normal" 
-          style={{ 
-            backgroundImage: 'linear-gradient(var(--tw-gradient-stops)), linear-gradient(90deg, var(--tw-gradient-stops))', 
+        <div
+          className="absolute inset-0 opacity-[0.05] dark:opacity-[0.02] mix-blend-multiply dark:mix-blend-normal"
+          style={{
+            backgroundImage: 'linear-gradient(var(--tw-gradient-stops)), linear-gradient(90deg, var(--tw-gradient-stops))',
             backgroundSize: '50px 50px',
             '--tw-gradient-from': 'currentcolor 1px',
             '--tw-gradient-to': 'transparent 1px'
-          }} 
+          }}
         />
-        
+
         {/* Massive Floating Orbs */}
-        <motion.div 
+        <motion.div
           animate={{ x: [0, 80, -40, 0], y: [0, -80, 40, 0] }}
           transition={{ duration: 25, repeat: Infinity, ease: "linear" }}
           className="absolute -top-1/4 -left-1/4 w-[1000px] h-[1000px] rounded-full bg-blue-400/20 dark:bg-blue-600/10 blur-[150px] mix-blend-multiply dark:mix-blend-screen transition-colors duration-500"
         />
-        <motion.div 
+        <motion.div
           animate={{ x: [0, -60, 60, 0], y: [0, 80, -40, 0] }}
           transition={{ duration: 30, repeat: Infinity, ease: "linear" }}
           className="absolute top-1/2 -right-1/4 w-[800px] h-[800px] rounded-full bg-indigo-400/20 dark:bg-indigo-600/10 blur-[120px] mix-blend-multiply dark:mix-blend-screen transition-colors duration-500"
@@ -138,7 +138,7 @@ export default function App() {
         {/* Header - Glassmorphism */}
         <header className="fixed top-0 left-0 right-0 z-40 bg-white/70 dark:bg-[#0B1120]/40 backdrop-blur-2xl border-b border-slate-200 dark:border-white/5 py-4 transition-all duration-300">
           <div className="max-w-[1200px] mx-auto px-6 flex items-center justify-between">
-            
+
             <Link to="/" className="flex items-center gap-3">
               <div className="w-8 h-8 bg-slate-900 dark:bg-white flex items-center justify-center p-0.5 rounded-sm transition-colors duration-300">
                 <img src={logoUrl} alt="Acadex Logo" className="w-full h-full object-contain transition-all duration-300" />
@@ -151,17 +151,27 @@ export default function App() {
             </nav>
 
             <div className="flex items-center gap-4">
-              
+
               {/* Day/Night Toggle */}
-              <button 
+              <button
                 onClick={toggleTheme}
                 className="w-10 h-10 rounded-full flex items-center justify-center bg-slate-200 dark:bg-[#1E293B] hover:bg-slate-300 dark:hover:bg-slate-800 text-slate-700 dark:text-slate-300 transition-colors shadow-inner"
                 aria-label="Toggle Theme"
               >
                 {isDarkMode ? <Sun className="w-5 h-5" /> : <Moon className="w-5 h-5" />}
               </button>
-
+              {/* 
               <MagneticButton 
+                href="https://tjweahfxyvggkvkecnwp.supabase.co/storage/v1/object/public/app/app-arm64-v8a-release.apk"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="hidden md:inline-flex items-center gap-2 text-xs font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 hover:bg-blue-100 dark:hover:bg-blue-500/20 border border-blue-200 dark:border-blue-500/30 transition-colors px-5 py-2.5 rounded-lg shadow-sm hover:shadow-[0_0_15px_rgba(59,130,246,0.3)]"
+              >
+                <Download className="w-4 h-4" />
+                Get App
+              </MagneticButton> */}
+
+              <MagneticButton
                 href="https://acadextechnologies.netlify.app/login"
                 target="_blank"
                 rel="noopener noreferrer"
@@ -171,7 +181,7 @@ export default function App() {
               </MagneticButton>
 
               {/* Mobile Hamburger Button */}
-              <button 
+              <button
                 onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
                 className="md:hidden w-10 h-10 rounded-lg flex items-center justify-center bg-slate-100 dark:bg-[#1E293B] text-slate-700 dark:text-slate-300 transition-colors"
                 aria-label="Toggle Mobile Menu"
@@ -179,13 +189,13 @@ export default function App() {
                 {isMobileMenuOpen ? <X className="w-6 h-6" /> : <Menu className="w-6 h-6" />}
               </button>
             </div>
-            
+
           </div>
 
           {/* Mobile Menu Dropdown */}
           <AnimatePresence>
             {isMobileMenuOpen && (
-              <motion.div 
+              <motion.div
                 initial={{ opacity: 0, y: -20 }}
                 animate={{ opacity: 1, y: 0 }}
                 exit={{ opacity: 0, y: -20 }}
@@ -194,13 +204,22 @@ export default function App() {
                 <nav className="flex flex-col gap-4">
                   <a href="/" onClick={() => setIsMobileMenuOpen(false)} className="text-lg font-bold text-slate-800 dark:text-white transition-colors">About</a>
                 </nav>
-                <a 
+                <a
                   href="https://acadextechnologies.netlify.app/login"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="w-full text-center text-sm font-bold text-white bg-[#3B82F6] hover:bg-blue-400 transition-colors px-6 py-4 rounded-xl shadow-[0_0_15px_rgba(59,130,246,0.3)]"
                 >
                   Login to Portal
+                </a>
+                <a
+                  href="https://tjweahfxyvggkvkecnwp.supabase.co/storage/v1/object/public/app/app-arm64-v8a-release.apk"
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="w-full text-center text-sm font-bold text-blue-600 dark:text-blue-400 bg-blue-50 dark:bg-blue-500/10 hover:bg-blue-100 dark:hover:bg-blue-500/20 border border-blue-200 dark:border-blue-500/30 transition-colors px-6 py-4 rounded-xl flex items-center justify-center gap-2"
+                >
+                  <Download className="w-5 h-5" />
+                  Download App
                 </a>
               </motion.div>
             )}
@@ -217,14 +236,14 @@ export default function App() {
 
         {/* Mega Footer */}
         <footer className="relative bg-white/50 dark:bg-[#070B14]/80 backdrop-blur-lg border-t border-slate-200 dark:border-slate-800 pt-24 pb-12 overflow-hidden mt-20 transition-colors duration-500">
-          
+
           {/* Giant Watermark Logo */}
           <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 text-[15vw] font-black text-slate-900/5 dark:text-white/5 pointer-events-none select-none tracking-tighter w-full text-center mix-blend-overlay transition-colors duration-500">
             ACADEXTECH
           </div>
 
           <div className="relative z-10 max-w-[1200px] mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 lg:gap-8 mb-20">
-            
+
             {/* Brand & Description */}
             <div className="md:col-span-4">
               <div className="flex items-center gap-3 mb-6">
@@ -266,12 +285,12 @@ export default function App() {
                 Subscribe to our engineering newsletter for updates on new infrastructure rollouts.
               </p>
               <div className="flex items-center gap-2">
-                <input 
-                  type="email" 
+                <input
+                  type="email"
                   placeholder="director@institute.edu"
                   className="w-full px-4 py-3 rounded-lg bg-slate-100 dark:bg-[#121A2F]/50 backdrop-blur-sm border border-slate-200 dark:border-slate-800 text-slate-900 dark:text-white text-sm focus:outline-none focus:border-blue-500 transition-colors"
                 />
-                <motion.button 
+                <motion.button
                   whileHover={{ scale: 1.05 }}
                   whileTap={{ scale: 0.95 }}
                   className="w-12 h-12 flex-shrink-0 bg-blue-500 hover:bg-blue-400 rounded-lg flex items-center justify-center text-white shadow-[0_0_15px_rgba(59,130,246,0.3)] transition-colors"
@@ -287,7 +306,7 @@ export default function App() {
             <p className="text-xs font-medium text-slate-500">
               © {new Date().getFullYear()} Acadex Technologies. All rights reserved.
             </p>
-            
+
             <div className="flex items-center gap-4">
               {[
                 { icon: Hash, link: "#" },
@@ -295,7 +314,7 @@ export default function App() {
                 { icon: Video, link: "#" },
                 { icon: Camera, link: "#" }
               ].map((social, idx) => (
-                <motion.a 
+                <motion.a
                   key={idx}
                   href={social.link}
                   whileHover={{ y: -3, scale: 1.1, color: '#60A5FA' }}
