@@ -48,6 +48,7 @@ export default function SoftwareCard({
           >
             Book Demo
           </button>
+          
         ) : (
           <div className="flex justify-center w-full pb-2">
             <ChevronDown className="w-4 h-4 text-slate-600" />
